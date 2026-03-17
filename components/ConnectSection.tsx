@@ -28,7 +28,7 @@ export default function ConnectSection() {
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden bg-transparent">
+    <section id="connect" className="py-32 relative overflow-hidden bg-transparent">
       
       {/* Gentle Glass Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
@@ -48,10 +48,7 @@ export default function ConnectSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-glow-blue)]/10 to-transparent pointer-events-none" />
               
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm mb-8 tracking-wide">
-                <div className="w-2 h-2 rounded-full bg-[var(--color-glow-cyan)] shadow-[0_0_8px_var(--color-glow-cyan)] animate-pulse" />
-                MODULE 01
-              </div>
+
               
               <h3 className="text-5xl md:text-7xl font-heading tracking-tight text-white mb-6">
                 SETBIN<br/>

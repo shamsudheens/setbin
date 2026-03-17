@@ -45,7 +45,7 @@ export default function FinalCTA() {
           <p className="text-2xl md:text-4xl font-light text-white/80 mx-auto mb-16 py-6 relative">
             <span className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             Infrastructure for the Global<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-[var(--color-glow-blue)] font-medium">Smartphone Service Industry</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-[var(--color-glow-blue)] font-medium">Technical Service Industry</span>
             <span className="absolute bottom-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </p>
 

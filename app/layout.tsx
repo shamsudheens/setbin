@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[#050B14] text-white font-sans selection:bg-white/20 selection:text-white transition-colors`}
+        className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[#030816] text-white font-sans selection:bg-white/20 selection:text-white transition-colors`}
       >
         {children}
       </body>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
@@ -11,35 +12,29 @@ async function processFrames() {
   
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const src = path.join(framesDir, file);
-    const dest = path.join(framesDir, `frame_${i}.webp`);
+    if (!file.endsWith('.png')) continue;
+
+    // Extract index from "ezgif-frame-XXX.png"
+    const match = file.match(/ezgif-frame-(\d+)\.png/);
+    if (!match) continue;
     
+    const index = match[1];
     try {
-      const meta = await sharp(src).metadata();
-      
-      // We only crop from the bottom to remove the Veo text.
-      // E.g., cutting off the bottom 60 pixels. We do NOT crop top, left, or right.
-      const cropBottomPx = 60;
+      const src = path.join(framesDir, file);
+      const dest = path.join(framesDir, `ezgif-frame-${index}.webp`);
       
       await sharp(src)
-        .extract({ 
-          left: 0, 
-          top: 0, 
-          width: meta.width, 
-          height: meta.height - cropBottomPx 
-        })
-        .webp({ quality: 80 })
+        .webp({ quality: 85, lossless: false })
         .toFile(dest);
       
-      // Wait to delete PNGs until confirmed by user.
-      if (i % 10 === 0 || i === files.length - 1) {
+      if (i % 20 === 0 || i === files.length - 1) {
         console.log(`Processed ${i + 1}/${files.length} frames...`);
       }
     } catch (err) {
       console.error(`Error processing ${file}:`, err);
     }
   }
-  console.log('Finished processing all frames!');
+  console.log('Finished processing all frames to WebP! New files are in public/frames/');
 }
 
 processFrames();

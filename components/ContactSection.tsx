@@ -92,7 +92,7 @@ export default function ContactSection() {
                </div>
                <div>
                   <h4 className="text-xl font-heading font-medium text-white mb-2">Enterprise Email</h4>
-                  <p className="text-[var(--color-glow-blue)] font-light text-base hover:text-white transition-colors cursor-pointer inline-block drop-shadow-[0_0_5px_rgba(47,128,237,0.5)]">hello@setbin.com</p>
+                  <p className="text-[var(--color-glow-blue)] font-light text-base hover:text-white transition-colors cursor-pointer inline-block drop-shadow-[0_0_5px_rgba(47,128,237,0.5)]">official@setbin.in</p>
                </div>
             </motion.div>
           </div>

@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, ChevronRight, Laptop, Wrench, Search, CreditCard, Clock, Smartphone } from "lucide-react";
+import { CheckCircle2, Wrench, Search, CreditCard, Clock, Settings } from "lucide-react";
 
 export default function ServiceProSection() {
   const steps = [
-    { name: "Device Intake", icon: <Smartphone className="w-5 h-5" />, color: "var(--color-glow-blue)" },
+    { name: "Device Intake", icon: <Settings className="w-5 h-5" />, color: "var(--color-glow-blue)" },
     { name: "Diagnosis", icon: <Search className="w-5 h-5" />, color: "var(--color-glow-cyan)" },
     { name: "Parts Selection", icon: <CheckCircle2 className="w-5 h-5" />, color: "var(--color-glow-purple)" },
     { name: "Repair Process", icon: <Wrench className="w-5 h-5" />, color: "var(--color-glow-cyan)" },
@@ -14,7 +14,7 @@ export default function ServiceProSection() {
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden bg-transparent">
+    <section id="service-pro" className="py-32 relative overflow-hidden bg-transparent">
       {/* Soft Glow Background */}
       <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-gradient-to-r from-[var(--color-glow-blue)]/5 via-[var(--color-glow-cyan)]/10 to-[var(--color-glow-purple)]/5 blur-[100px]" />
@@ -22,14 +22,7 @@ export default function ServiceProSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-20">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/70 font-medium text-sm mb-6 backdrop-blur-md"
-          >
-            <Laptop className="w-4 h-4 text-[var(--color-glow-cyan)]" /> MODULE 02
-          </motion.div>
+
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +38,7 @@ export default function ServiceProSection() {
             transition={{ delay: 0.1 }}
             className="text-xl font-light text-white/70"
           >
-            The comprehensive operating system designed specifically for modern smartphone service centers.
+            The comprehensive operating system designed specifically for modern technical service centers.
           </motion.p>
         </div>
 
@@ -55,7 +48,7 @@ export default function ServiceProSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative max-w-5xl mx-auto rounded-[2rem] border border-white/10 bg-[#050B14]/60 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5),auto_auto_auto_auto_rgba(47,128,237,0.1)_inset] overflow-hidden"
+          className="relative max-w-5xl mx-auto rounded-[2rem] border border-white/10 bg-[#030816]/60 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5),auto_auto_auto_auto_rgba(47,128,237,0.1)_inset] overflow-hidden"
         >
           {/* Top Bar Mockup */}
           <div className="flex items-center gap-3 px-6 py-4 bg-white/[0.02] border-b border-white/10 backdrop-blur-md">
@@ -98,7 +91,7 @@ export default function ServiceProSection() {
                   )}
 
                   <div 
-                    className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#050B14] border border-white/20 text-white shadow-lg group-hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+                    className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#030816] border border-white/20 text-white shadow-lg group-hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
                   >
                      <div 
                         className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity"

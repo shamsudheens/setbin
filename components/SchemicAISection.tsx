@@ -5,7 +5,7 @@ import { Cpu } from "lucide-react";
 
 export default function SchemicAISection() {
   return (
-    <section className="py-32 relative overflow-hidden bg-transparent">
+    <section id="schemic-ai" className="py-32 relative overflow-hidden bg-transparent">
       
       {/* Gentle Glass Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
@@ -18,7 +18,7 @@ export default function SchemicAISection() {
         {/* Visual Concept: Glass schematic paths */}
         <div className="flex-1 w-full max-w-lg aspect-square relative group perspective-1000">
           <motion.div 
-            className="absolute inset-0 rounded-[3rem] border border-white/10 bg-[#02060D]/80 backdrop-blur-xl overflow-hidden shadow-[0_0_50px_rgba(47,128,237,0.1)] group-hover:shadow-[0_0_60px_rgba(47,128,237,0.2)] transition-shadow duration-700"
+            className="absolute inset-0 rounded-[3rem] border border-white/10 bg-[#030816]/80 backdrop-blur-xl overflow-hidden shadow-[0_0_50px_rgba(47,128,237,0.1)] group-hover:shadow-[0_0_60px_rgba(47,128,237,0.2)] transition-shadow duration-700"
             style={{ transformStyle: 'preserve-3d' }}
           >
             
@@ -30,7 +30,7 @@ export default function SchemicAISection() {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-2xl bg-[#050B14] border border-[var(--color-glow-blue)]/50 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(47,128,237,0.4)]"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-2xl bg-[#030816] border border-[var(--color-glow-blue)]/50 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(47,128,237,0.4)]"
             >
               <Cpu className="w-16 h-16 text-[var(--color-glow-cyan)] drop-shadow-[0_0_10px_var(--color-glow-cyan)]" />
               {/* Pulsing ring out from chip */}
@@ -133,9 +133,7 @@ export default function SchemicAISection() {
             viewport={{ once: true }}
             className="glass-panel p-10 rounded-[2rem] relative z-10"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm mb-6 tracking-wide">
-              MODULE 03
-            </div>
+
             
             <h3 className="text-5xl md:text-7xl font-heading tracking-tight text-white mb-6">
               Schemic<br/>
