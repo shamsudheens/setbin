@@ -108,7 +108,8 @@ export default function Navbar() {
             <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] opacity-70 group-hover:opacity-100 transition-opacity" />
             <div className="absolute inset-[1px] bg-[#030816] rounded-full" />
             <span className="relative z-10 text-white font-medium text-xs md:text-sm tracking-wide text-glow">
-              {t('nav.connectBtn')}
+              <span className="hidden md:inline">{t('nav.connectBtn')}</span>
+              <span className="md:hidden">{t('nav.connectBtnMobile')}</span>
             </span>
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-full blur-sm" />
           </a>

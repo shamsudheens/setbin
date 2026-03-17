@@ -139,10 +139,11 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
 
   const handleScroll = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     const targetId = pillar.href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
-      const offset = 80; // Navbar height
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
@@ -232,7 +233,11 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
                   </p>
                   <div className="pt-2">
                     <span 
-                      className="inline-flex items-center gap-2 text-white text-xs font-bold tracking-[0.2em] uppercase transition-all hover:gap-4"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleScroll(e);
+                      }}
+                      className="inline-flex items-center gap-2 text-white text-xs font-bold tracking-[0.2em] uppercase transition-all hover:gap-4 cursor-pointer"
                       style={{ color: pillar.accentColor }}
                     >
                       {t(pillar.ctaKey)}
