@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Cpu } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function SchemicAISection() {
+  const { t } = useLanguage();
   return (
-    <section id="schemic-ai" className="py-32 relative overflow-hidden bg-transparent">
+    <section id="schemic-ai" className="py-32 relative overflow-hidden bg-transparent scroll-mt-32">
       
       {/* Gentle Glass Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
@@ -134,16 +136,12 @@ export default function SchemicAISection() {
             className="glass-panel p-10 rounded-[2rem] relative z-10"
           >
 
-            
-            <h3 className="text-5xl md:text-7xl font-heading tracking-tight text-white mb-6">
-              Schemic<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--color-glow-blue)]">AI</span>
-            </h3>
+            <h3 className="text-5xl md:text-7xl font-heading tracking-tight text-white mb-6" dangerouslySetInnerHTML={{ __html: t('ai.title') }} />
             <p className="text-2xl font-light text-[var(--color-glow-cyan)] mb-6 drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">
-              AI-powered schematic-based diagnostics
+              {t('ai.chip')}
             </p>
             <p className="text-lg font-light text-white/60 leading-relaxed max-w-lg mb-8">
-              Transforming trial-and-error repair. Schemic AI instantly analyzes motherboard fault symptoms and generates precise tracing paths, turning hours of guesswork into minutes of targeted execution.
+              {t('ai.desc')}
             </p>
             
             {/* Fault Trace Animated Log in Glass Terminal */}

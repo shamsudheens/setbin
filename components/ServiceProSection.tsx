@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2, Wrench, Search, CreditCard, Clock, Settings } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ServiceProSection() {
+  const { t } = useLanguage();
   const steps = [
     { name: "Device Intake", icon: <Settings className="w-5 h-5" />, color: "var(--color-glow-blue)" },
     { name: "Diagnosis", icon: <Search className="w-5 h-5" />, color: "var(--color-glow-cyan)" },
@@ -14,7 +16,7 @@ export default function ServiceProSection() {
   ];
 
   return (
-    <section id="service-pro" className="py-32 relative overflow-hidden bg-transparent">
+    <section id="service-pro" className="py-32 relative overflow-hidden bg-transparent scroll-mt-32">
       {/* Soft Glow Background */}
       <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-gradient-to-r from-[var(--color-glow-blue)]/5 via-[var(--color-glow-cyan)]/10 to-[var(--color-glow-purple)]/5 blur-[100px]" />
@@ -28,9 +30,8 @@ export default function ServiceProSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-heading tracking-tight text-white mb-6"
-          >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-white">Service Pro</span>
-          </motion.h2>
+            dangerouslySetInnerHTML={{ __html: t('pro.title') }}
+          />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +39,7 @@ export default function ServiceProSection() {
             transition={{ delay: 0.1 }}
             className="text-xl font-light text-white/70"
           >
-            The comprehensive operating system designed specifically for modern technical service centers.
+            {t('pro.desc')}
           </motion.p>
         </div>
 

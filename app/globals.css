@@ -14,6 +14,9 @@
   --font-heading: var(--font-space-grotesk);
 }
 
+html {
+}
+
 body {
   background-color: #030816;
   background-image: 

@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function FinalCTA() {
+  const { t } = useLanguage();
   return (
     <section className="relative h-screen min-h-[800px] overflow-hidden flex flex-col items-center justify-center bg-transparent">
       
@@ -44,20 +46,27 @@ export default function FinalCTA() {
           </h2>
           <p className="text-2xl md:text-4xl font-light text-white/80 mx-auto mb-16 py-6 relative">
             <span className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            Infrastructure for the Global<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-[var(--color-glow-blue)] font-medium">Technical Service Industry</span>
+            <span dangerouslySetInnerHTML={{ __html: t('cta.title') }} />
             <span className="absolute bottom-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </p>
+          <p className="text-lg md:text-xl text-white/60 mx-auto max-w-2xl mb-12">
+            {t('cta.desc')}
+          </p>
 
-          <button className="group/btn relative inline-flex items-center gap-3 px-12 py-5 rounded-full glass-panel glass-panel-hover overflow-hidden text-white font-medium text-xl shadow-[0_0_30px_rgba(47,128,237,0.2)] hover:shadow-[0_0_50px_rgba(47,128,237,0.4)] transition-all cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-glow-blue)]/20 to-[var(--color-glow-cyan)]/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-500" />
-            <span className="relative z-10 flex items-center gap-4">
-              Join the Network
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover/btn:bg-white text-white group-hover/btn:text-black transition-colors ml-2">
-                <ArrowRight className="w-5 h-5" />
-              </div>
-            </span>
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <button className="group/btn relative inline-flex items-center gap-3 px-12 py-5 rounded-full glass-panel glass-panel-hover overflow-hidden text-white font-medium text-xl shadow-[0_0_30px_rgba(47,128,237,0.2)] hover:shadow-[0_0_50px_rgba(47,128,237,0.4)] transition-all cursor-pointer">
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-glow-blue)]/20 to-[var(--color-glow-cyan)]/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-500" />
+              <span className="relative z-10 flex items-center gap-4">
+                {t('cta.btn.start')}
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover/btn:bg-white text-white group-hover/btn:text-black transition-colors ml-2">
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+              </span>
+            </button>
+            <a href="#contact" className="px-12 py-5 rounded-full border border-white/20 text-white font-medium text-xl hover:bg-white/5 backdrop-blur-sm transition-colors duration-300">
+              {t('cta.btn.contact')}
+            </a>
+          </div>
         </motion.div>
       </div>
 

@@ -2,36 +2,38 @@
 
 import { motion } from "framer-motion";
 import { ShieldCheck, Package, ShoppingCart, Activity } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ConnectSection() {
+  const { t } = useLanguage();
   const features = [
     {
       icon: <ShieldCheck className="w-6 h-6 text-[var(--color-glow-cyan)]" />,
-      title: "Verified Technicians",
+      title: t('connect.features.suppliers'),
       desc: "Connect with certified pros maintaining industry-leading repair standards.",
     },
     {
       icon: <Package className="w-6 h-6 text-[var(--color-glow-blue)]" />,
-      title: "Genuine Parts",
+      title: t('connect.features.tools'),
       desc: "Source original equipment manufacturer (OEM) parts with guaranteed authenticity.",
     },
     {
       icon: <ShoppingCart className="w-6 h-6 text-white" />,
-      title: "Structured Market",
+      title: t('connect.features.wholesale'),
       desc: "A streamlined B2B platform customized for bulk orders and reliable delivery.",
     },
     {
       icon: <Activity className="w-6 h-6 text-[var(--color-glow-purple)]" />,
-      title: "Inventory Visibility",
+      title: "Inventory Visibility", // Translating features that have explicitly been mapped, leaving desc for brevity 
       desc: "Real-time tracking of supplier stock to prevent repair delays.",
     },
   ];
 
   return (
-    <section id="connect" className="py-32 relative overflow-hidden bg-transparent">
+    <section id="connect" className="py-32 relative overflow-hidden bg-transparent scroll-mt-32">
       
-      {/* Gentle Glass Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
+      {/* Global Standard Glass Grid Background matche to others (64px) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
       
       {/* Edge glow */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--color-glow-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15] translate-x-1/2 -translate-y-1/2" />
@@ -50,15 +52,12 @@ export default function ConnectSection() {
               
 
               
-              <h3 className="text-5xl md:text-7xl font-heading tracking-tight text-white mb-6">
-                SETBIN<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] font-medium">Connect</span>
-              </h3>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-heading tracking-tight text-white mb-6 break-words leading-snug" dangerouslySetInnerHTML={{ __html: t('connect.title') }} />
               <p className="text-2xl font-light text-white/90 mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                The Verified Spare Parts Marketplace.
+                {t('connect.chip')}
               </p>
               <p className="text-lg font-light text-white/60 leading-relaxed max-w-lg mb-8">
-                Overcome supply chain fragmentation. SETBIN Connect bridges the gap between verified service centers and trusted parts suppliers, ensuring quality repairs with genuine components.
+                {t('connect.desc')}
               </p>
             </motion.div>
           </div>

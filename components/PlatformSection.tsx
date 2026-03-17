@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Info, Target, Eye } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function PlatformSection() {
+  const { t } = useLanguage();
   return (
     <section id="about" className="relative py-40 overflow-hidden bg-transparent">
       {/* Subtle Ambient Glows */}
@@ -21,7 +23,7 @@ export default function PlatformSection() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/5 bg-white/5 backdrop-blur-md mb-8"
           >
             <Info className="w-3.5 h-3.5 text-[var(--color-glow-cyan)]" />
-            <span className="text-[10px] font-medium text-white/40 uppercase tracking-[0.3em]">About Us</span>
+            <span className="text-[10px] font-medium text-white/40 uppercase tracking-[0.3em]">{t('platform.chip')}</span>
           </motion.div>
           
           <motion.h2 
@@ -29,10 +31,8 @@ export default function PlatformSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-heading tracking-tight text-white mb-10 leading-[1.15]"
-          >
-            Building the Digital Backbone for the <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-[var(--color-glow-blue)]">Smartphone Service Ecosystem</span>
-          </motion.h2>
+            dangerouslySetInnerHTML={{ __html: t('platform.title') }}
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export default function PlatformSection() {
             transition={{ delay: 0.1 }}
             className="text-xl md:text-2xl text-white/60 font-light leading-relaxed max-w-3xl mx-auto"
           >
-            SETBIN connects technicians, service centers, and spare parts suppliers through a structured, trusted, and intelligent platform.
+            {t('platform.desc')}
           </motion.p>
         </div>
 
@@ -54,10 +54,10 @@ export default function PlatformSection() {
           >
              <div className="flex items-center gap-3 mb-4">
               <Eye className="w-5 h-5 text-[var(--color-glow-blue)]" />
-              <h3 className="text-sm font-semibold text-white uppercase tracking-[0.2em]">Our Vision</h3>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-[0.2em]">{t('platform.card1.title')}</h3>
             </div>
             <p className="text-lg text-white/50 font-light leading-relaxed">
-              To become the most trusted digital infrastructure platform for the global smartphone servicing industry — a structured, transparent, and data-driven ecosystem.
+              {t('platform.card1.desc')}
             </p>
           </motion.div>
 
@@ -69,10 +69,10 @@ export default function PlatformSection() {
           >
             <div className="flex items-center gap-3 mb-4">
               <Target className="w-5 h-5 text-[var(--color-glow-cyan)]" />
-              <h3 className="text-sm font-semibold text-white uppercase tracking-[0.2em]">Our Mission</h3>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-[0.2em]">{t('platform.card2.title')}</h3>
             </div>
             <p className="text-lg text-white/50 font-light leading-relaxed">
-              To empower the global repair community with the tools they need to operate efficiently, source genuine parts reliably, and diagnose complex device faults.
+              {t('platform.card2.desc')}
             </p>
           </motion.div>
         </div>
@@ -85,7 +85,7 @@ export default function PlatformSection() {
         >
           <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-white/10 to-transparent mx-auto mb-10" />
           <p className="text-lg md:text-xl font-light text-white/30 leading-relaxed italic max-w-3xl mx-auto">
-            &quot;SETBIN is building an ecosystem where operational infrastructure and <span className="text-white/50 font-normal">technical intelligence</span> come together to transform how repairs are performed worldwide.&quot;
+            &quot;{t('platform.card3.desc')}&quot;
           </p>
         </motion.div>
       </div>

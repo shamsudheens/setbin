@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function GlobalNetwork() {
+  const { t } = useLanguage();
   const nodes = [
     { name: "Delhi", top: "28%", left: "41%", color: "var(--color-glow-blue)" },
     { name: "Mumbai", top: "56%", left: "32%", color: "var(--color-glow-cyan)" },
@@ -32,14 +34,11 @@ export default function GlobalNetwork() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto mb-20 relative"
         >
-          <h2 className="text-6xl md:text-8xl font-heading tracking-tight text-white mb-6">
-            India&apos;s Service<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-[var(--color-glow-blue)]">Network</span>
-          </h2>
+          <h2 className="text-6xl md:text-8xl font-heading tracking-tight text-white mb-6" dangerouslySetInnerHTML={{ __html: t('network.title') }} />
           <div className="glass-panel px-8 py-4 rounded-2xl inline-block">
             <p className="text-xl text-white/80 font-light leading-relaxed">
-              <span className="text-white font-medium mr-2 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">SETBIN</span>
-               is digitizing the Indian technical service landscape, connecting tech hubs and local centers into a single high-performance ecosystem.
+              <span className="text-white font-medium mr-2 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">{t('network.chip')}</span>
+               {t('network.desc')}
             </p>
           </div>
         </motion.div>

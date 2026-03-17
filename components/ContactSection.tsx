@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactSection() {
+  const { t } = useLanguage();
   return (
     <section className="py-32 relative overflow-hidden bg-transparent" id="contact">
       
@@ -19,17 +21,15 @@ export default function ContactSection() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/70 font-medium text-sm mb-6 backdrop-blur-md"
           >
-            <MapPin className="w-4 h-4 text-[var(--color-glow-blue)]" /> Global Presence
+            <MapPin className="w-4 h-4 text-[var(--color-glow-blue)]" /> {t('contact.chip')}
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-heading tracking-tight text-white mb-6"
-          >
-            Connect With<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-cyan)] to-[var(--color-glow-blue)]">SETBIN</span>
-          </motion.h2>
+            dangerouslySetInnerHTML={{ __html: t('contact.title') }}
+          />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function ContactSection() {
             transition={{ delay: 0.1 }}
             className="text-xl font-light text-white/70"
           >
-            Visit our operational headquarters or reach out for enterprise infrastructure inquiries.
+            {t('contact.desc')}
           </motion.p>
         </div>
 

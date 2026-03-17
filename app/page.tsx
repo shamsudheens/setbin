@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroCanvasAnimation from "@/components/HeroCanvasAnimation";
-import PlatformSection from "@/components/PlatformSection";
+import PillarsSection from "@/components/PillarsSection";
 import ConnectSection from "@/components/ConnectSection";
 import ServiceProSection from "@/components/ServiceProSection";
 import SchemicAISection from "@/components/SchemicAISection";
@@ -13,7 +13,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <HeroCanvasAnimation />
-      <PlatformSection />
+      <PillarsSection />
       <ConnectSection />
       <ServiceProSection />
       <SchemicAISection />
