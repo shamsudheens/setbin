@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function SchemicAISection() {
   const { t } = useLanguage();
   return (
-    <section id="schemic-ai" className="py-32 relative overflow-hidden bg-transparent scroll-mt-32">
+    <section id="schemic-ai" className="py-32 relative overflow-hidden bg-transparent scroll-mt-20">
       
       {/* Gentle Glass Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />

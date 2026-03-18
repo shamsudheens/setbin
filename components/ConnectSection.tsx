@@ -30,7 +30,7 @@ export default function ConnectSection() {
   ];
 
   return (
-    <section id="connect" className="py-32 relative overflow-hidden bg-transparent scroll-mt-32">
+    <section id="connect" className="py-32 relative overflow-hidden bg-transparent scroll-mt-20">
       
       {/* Global Standard Glass Grid Background matche to others (64px) */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />

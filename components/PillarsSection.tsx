@@ -100,7 +100,7 @@ const pillars = [
   }
 ];
 
-function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: any) {
+function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isScrollingRef }: any) {
   const { t } = useLanguage();
   const cardRef = useRef<HTMLDivElement>(null);
   
@@ -118,7 +118,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
   const spotlightY = useTransform(mouseYSpring, [-0.5, 0.5], [0, 100]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isMobile) return;
+    if (isMobile || isScrollingRef?.current) return;
     const rect = cardRef.current?.getBoundingClientRect();
     if (rect) {
       const mouseX = e.clientX - rect.left;
@@ -130,20 +130,38 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
     }
   };
 
+  const handleMouseEnter = () => {
+    if (isScrollingRef?.current) return;
+    setHoveredIndex(index);
+  };
+
   const handleMouseLeave = () => {
+    if (isScrollingRef?.current) return;
     setHoveredIndex(null);
     x.set(0);
     y.set(0);
   };
 
 
+
+
   const handleScroll = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isScrollingRef) {
+      isScrollingRef.current = true;
+      setTimeout(() => {
+        isScrollingRef.current = false;
+        setHoveredIndex(null);
+      }, 1000);
+    }
+
     const targetId = pillar.href.replace('#', '');
     const element = document.getElementById(targetId);
+
     if (element) {
-      const offset = 80;
+      const offset = 80; // Navbar height
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
@@ -159,7 +177,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHoveredIndex(index)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -172,9 +190,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
       }}
       className="relative h-[400px] md:h-[500px] w-full group cursor-pointer"
     >
-      <a 
-        href={pillar.href} 
-        onClick={handleScroll}
+      <div 
         className="block h-full w-full"
       >
         <div 
@@ -264,7 +280,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile }: an
           {/* Internal Top Light Reflection */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
         </div>
-      </a>
+      </div>
     </motion.div>
   );
 }
@@ -273,6 +289,7 @@ export default function PillarsSection() {
   const { t } = useLanguage();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const isScrollingRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -344,6 +361,7 @@ export default function PillarsSection() {
               hoveredIndex={hoveredIndex} 
               setHoveredIndex={setHoveredIndex}
               isMobile={isMobile}
+              isScrollingRef={isScrollingRef}
             />
           ))}
         </div>
