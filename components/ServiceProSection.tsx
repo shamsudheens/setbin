@@ -1,140 +1,470 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { CheckCircle2, Wrench, Search, CreditCard, Clock, Settings } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  LayoutDashboard, 
+  BookOpen, 
+  CreditCard, 
+  TrendingUp, 
+  History,
+  ArrowRight,
+  TrendingDown,
+  Activity,
+  FileText,
+  UserCheck,
+  Zap,
+  ShieldCheck,
+  MousePointer2,
+  Package,
+  Users,
+  Briefcase,
+  UserPlus,
+  Store,
+  PieChart,
+  BarChart3,
+  Search,
+  Plus,
+  ExternalLink,
+  AlertTriangle
+} from "lucide-react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+
+// --- COMPACT VIEW COMPONENTS ---
+
+const FeatureCard = ({ title, value, detail, colorClass, icon: Icon }: any) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+    className="p-4 rounded-[2rem] bg-white/[0.03] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 backdrop-blur-3xl w-56 lg:w-64"
+  >
+    <div className="flex items-center gap-2 mb-2">
+        {Icon && <div className={`p-1.5 rounded-lg bg-white/5 ${colorClass}`}><Icon size={12} /></div>}
+        <div className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{title}</div>
+    </div>
+    <div className="text-xl lg:text-2xl font-bold text-white mb-0.5">{value}</div>
+    <div className={`text-[9px] font-bold flex items-center gap-1.5 ${colorClass}`}>
+       {detail}
+    </div>
+  </motion.div>
+);
+
+const RulesListCard = ({ title, items }: any) => (
+  <motion.div
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -20 }}
+    className="p-5 rounded-[2rem] bg-white/[0.03] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 backdrop-blur-3xl w-60 lg:w-64"
+  >
+    <div className="text-[9px] font-bold text-[var(--color-glow-cyan)] uppercase tracking-widest mb-3">{title}</div>
+    <div className="space-y-2">
+       {items.map((item: any, i: number) => (
+         <div key={i} className="flex items-center justify-between text-[9px] text-white/50">
+           <span className="flex items-center gap-2 truncate pr-2"><div className="w-1 h-1 rounded-full bg-[var(--color-glow-blue)] shrink-0" /> {item.label}</span>
+           <span className="font-mono text-[var(--color-glow-cyan)] shrink-0">{item.val}</span>
+         </div>
+       ))}
+    </div>
+  </motion.div>
+);
+
+// --- DASHBOARD SUB-VIEWS (COMPACT) ---
+
+const OverviewView = () => (
+  <div className="space-y-6">
+    <div className="grid grid-cols-3 gap-4">
+       {[
+         { l: 'REVENUE', v: '₹4.2M', c: 'text-[var(--color-glow-cyan)]' },
+         { l: 'EXPENSES', v: '₹1.8M', c: 'text-red-400' },
+         { l: 'PROFIT', v: '₹2.4M', c: 'text-green-400' }
+       ].map((it, i) => (
+         <div key={i} className="p-3 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="text-[8px] font-bold text-white/20 uppercase mb-1">{it.l}</div>
+            <div className={`text-base font-bold ${it.c}`}>{it.v}</div>
+         </div>
+       ))}
+    </div>
+    <div className="space-y-2">
+       {[1,2,3].map(i => (
+         <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="flex items-center gap-2">
+               <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center text-[var(--color-glow-blue)]"><Activity size={10}/></div>
+               <div className="text-[10px] text-white/70">New Job Received: iPhone 14 Pro</div>
+            </div>
+            <div className="text-[8px] font-mono text-white/20">2m ago</div>
+         </div>
+       ))}
+    </div>
+  </div>
+);
+
+const DayBookView = () => (
+  <div className="space-y-6">
+     <div className="flex gap-3">
+        <div className="flex-1 p-3 rounded-xl bg-[var(--color-glow-cyan)]/5 border border-[var(--color-glow-cyan)]/10">
+           <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Cash In</div>
+           <div className="text-base font-bold text-[var(--color-glow-cyan)]">+₹12.5K</div>
+        </div>
+        <div className="flex-1 p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+           <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Cash Out</div>
+           <div className="text-base font-bold text-red-400">-₹4.2K</div>
+        </div>
+     </div>
+     <div className="bg-white/[0.01] rounded-xl border border-white/5">
+        {[
+          { t: "UPI: Repair #42", v: "+₹1.2K" },
+          { t: "CASH: Parts Purchase", v: "-₹0.8K" },
+          { t: "UPI: Display Fix", v: "+₹3.5K" }
+        ].map((tx, i) => (
+          <div key={i} className="px-5 py-3 flex justify-between border-b border-white/5 last:border-0">
+             <div className="text-[10px] text-white/60">{tx.t}</div>
+             <div className={`text-[10px] font-bold ${tx.v.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>{tx.v}</div>
+          </div>
+        ))}
+     </div>
+  </div>
+);
+
+const JobsView = () => (
+  <div className="space-y-6">
+     <table className="w-full text-left">
+        <thead>
+           <tr className="bg-white/[0.03] text-[8px] text-white/30 uppercase font-bold border-b border-white/5">
+              <th className="px-5 py-3">ID</th>
+              <th className="px-5 py-3">DEVICE</th>
+              <th className="px-5 py-3">STATUS</th>
+           </tr>
+        </thead>
+        <tbody className="divide-y divide-white/5 text-[10px]">
+           {[
+             { id: "4281", dev: "iPhone 13", stat: "REPAIRING", col: "text-blue-400" },
+             { id: "4282", dev: "MacBook Air", stat: "RECEIVED", col: "text-[var(--color-glow-cyan)]" },
+             { id: "4283", dev: "S23 Ultra", stat: "READY", col: "text-green-400" },
+             { id: "4284", dev: "MOTO Edge", stat: "WAITING", col: "text-white/40" }
+           ].map((j, i) => (
+             <tr key={i} className="hover:bg-white/[0.01]">
+                <td className="px-5 py-3 font-mono text-white/30">{j.id}</td>
+                <td className="px-5 py-3 text-white/80 font-bold">{j.dev}</td>
+                <td className={`px-5 py-3 font-bold ${j.col}`}>{j.stat}</td>
+             </tr>
+           ))}
+        </tbody>
+     </table>
+  </div>
+);
+
+const AnalyticsView = () => (
+  <div className="space-y-6 h-full flex flex-col">
+     <div className="flex-1 min-h-[160px] relative">
+        <svg className="w-full h-full" viewBox="0 0 400 150">
+           <motion.path 
+             d="M0 120 Q50 90 100 100 T200 60 T300 90 T400 30" 
+             fill="none" 
+             stroke="var(--color-glow-cyan)" 
+             strokeWidth="3"
+             initial={{ pathLength: 0 }}
+             animate={{ pathLength: 1 }}
+             transition={{ duration: 1.5 }}
+           />
+           <motion.path 
+             d="M0 120 Q50 90 100 100 T200 60 T300 90 T400 30 V150 H0 Z" 
+             fill="url(#grad2)" 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 0.1 }}
+           />
+           <defs>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                 <stop offset="0%" stopColor="var(--color-glow-cyan)" />
+                 <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+           </defs>
+        </svg>
+     </div>
+     <div className="grid grid-cols-4 gap-2">
+        {[
+          { l: 'USERS', v: '24%' },
+          { l: 'SLA', v: '98%' },
+          { l: 'GMV', v: '₹4M' },
+          { l: 'CHURN', v: '1%' }
+        ].map((it, i) => (
+           <div key={i} className="text-center p-2 rounded bg-white/[0.01]">
+              <div className="text-xs font-bold text-white mb-0.5">{it.v}</div>
+              <div className="text-[7px] text-white/30 font-bold uppercase tracking-widest">{it.l}</div>
+           </div>
+        ))}
+     </div>
+  </div>
+);
+
+// --- MAIN COMPONENT ---
 
 export default function ServiceProSection() {
   const { t } = useLanguage();
-  const steps = [
-    { name: "Device Intake", icon: <Settings className="w-5 h-5" />, color: "var(--color-glow-blue)" },
-    { name: "Diagnosis", icon: <Search className="w-5 h-5" />, color: "var(--color-glow-cyan)" },
-    { name: "Parts Selection", icon: <CheckCircle2 className="w-5 h-5" />, color: "var(--color-glow-purple)" },
-    { name: "Repair Process", icon: <Wrench className="w-5 h-5" />, color: "var(--color-glow-cyan)" },
-    { name: "Billing", icon: <CreditCard className="w-5 h-5" />, color: "var(--color-glow-blue)" },
-    { name: "History", icon: <Clock className="w-5 h-5" />, color: "var(--color-glow-purple)" },
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const cycleTime = 5000;
+  const step = 50;
+
+  const tabs = [
+    { id: "overview", label: "OVERVIEW", icon: LayoutDashboard },
+    { id: "daybook", label: "DAYBOOK", icon: BookOpen },
+    { id: "jobs", label: "SERVICES", icon: Briefcase },
+    { id: "billing", label: "BILLING", icon: CreditCard },
+    { id: "expenses", label: "EXPENSES", icon: PieChart },
+    { id: "dues", label: "DUES", icon: TrendingDown },
+    { id: "inventory", label: "INVENTORY", icon: Package },
+    { id: "staff", label: "STAFF", icon: Users },
+    { id: "customers", label: "CUSTOMERS", icon: UserPlus },
+    { id: "vendors", label: "VENDORS", icon: Store },
+    { id: "reports", label: "REPORTS", icon: BarChart3 },
   ];
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) {
+            // Logic handled in separate effect for precision
+            return 100;
+        }
+        return p + (step / (cycleTime)) * 100;
+      });
+    }, step);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Precise State Switcher
+  useEffect(() => {
+      if (progress >= 100) {
+          const timer = setTimeout(() => {
+              setActiveIdx((prev) => (prev + 1) % tabs.length);
+              setProgress(0);
+          }, 300); // Small buffer for clean swap
+          return () => clearTimeout(timer);
+      }
+  }, [progress, tabs.length]);
+
+  const handleTabManual = (idx: number) => {
+      setActiveIdx(idx);
+      setProgress(0);
+  };
+
+  // DASHBOARD VIEWS MAP - ENSURE EVERY INDEX HAS UNIQUE VISUAL CUE
+  const dashboardViews: any = {
+    0: <OverviewView />,
+    1: <DayBookView />,
+    2: <JobsView />,
+    3: <OverviewView />, // Billing Placeholder
+    4: <OverviewView />, // Expenses
+    5: <DayBookView />, // Dues
+    6: <JobsView />, // Inventory
+    7: <OverviewView />, // Staff
+    8: <OverviewView />, // Customers
+    9: <DayBookView />, // Vendors
+    10: <AnalyticsView />
+  };
+
+  const cardsMap: any = {
+    0: {
+      tl: { title: "DAILY REVENUE", value: "₹24,800", detail: "+15% VS LAST WEEK", icon: TrendingUp, colorClass: "text-green-400" },
+      bl: { title: "PENDING JOBS", value: "12", detail: "4 URGENT", icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
+      mr: { items: [ { label: 'NEW_USERS', val: '8' }, { label: 'SLA_STATUS', val: 'OK' } ], title: 'STAT_NODE_01' }
+    },
+    1: {
+      tl: { title: "CASH FLOW", value: "₹84,200", detail: "LAST SYNC 2S", icon: CreditCard, colorClass: "text-blue-400" },
+      bl: { title: "TRANSACTIONS", value: "42", detail: "UPI DOMINANT", icon: Zap, colorClass: "text-[var(--color-glow-cyan)]" },
+      mr: { items: [ { label: 'BAL_HAND', val: '₹12K' }, { label: 'UPI_BAL', val: '₹72K' } ], title: 'STAT_NODE_02' }
+    },
+    2: {
+        tl: { title: "AVG REPAIR", value: "45M", detail: "-5M FROM TARGET", icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
+        bl: { title: "READY JOBS", value: "8", detail: "WAITING DELIVERY", icon: UserCheck, colorClass: "text-green-400" },
+        mr: { items: [ { label: 'PARTS_USED', val: '24' }, { label: 'TECH_LD', val: 'LOW' } ], title: 'STAT_NODE_03' }
+    },
+    3: {
+        tl: { title: "OUTSTANDING", value: "₹45.2K", detail: "5 CUSTOMERS", icon: TrendingDown, colorClass: "text-red-400" },
+        bl: { title: "INV_MATCH", value: "100%", detail: "GST VERIFIED", icon: ShieldCheck, colorClass: "text-blue-400" },
+        mr: { items: [ { label: 'DUE_DAYS', val: '2' }, { label: 'LATE_FEES', val: 'OFF' } ], title: 'STAT_NODE_04' }
+    },
+    4: {
+        tl: { title: "EXP_TOTAL", value: "₹12.4K", detail: "MONTHLY OPEX", icon: PieChart, colorClass: "text-red-400" },
+        bl: { title: "RENT_PAID", value: "YES", detail: "DUE IN 28D", icon: Store, colorClass: "text-[var(--color-glow-cyan)]" },
+        mr: { items: [ { label: 'TAX_EXP', val: '₹2K' }, { label: 'STAFF_EXP', val: '₹8K' } ], title: 'STAT_NODE_05' }
+    },
+    5: {
+        tl: { title: "RECEIVABLES", value: "₹85.0K", detail: "4 PENDING", icon: TrendingDown, colorClass: "text-red-400" },
+        bl: { title: "PAYABLES", value: "₹12.0K", detail: "DUE IN 3D", icon: ExternalLink, colorClass: "text-blue-400" },
+        mr: { items: [ { label: 'DEBT_RATIO', val: '0.2' }, { label: 'SPEED', val: 'HIGH' } ], title: 'STAT_NODE_06' }
+    },
+    6: {
+        tl: { title: "STOCK_VAL", value: "₹12.4M", detail: "450 SKUS", icon: Package, colorClass: "text-blue-400" },
+        bl: { title: "LOW_STOCK", value: "4", detail: "ALERT_ACTIVE", icon: AlertTriangle, colorClass: "text-orange-400" },
+        mr: { items: [ { label: 'TURNOVER', val: '4x' }, { label: 'DEADSTRK', val: '2%' } ], title: 'STAT_NODE_07' }
+    },
+    7: {
+        tl: { title: "EFFICIENCY", value: "94%", detail: "TEAM AVG", icon: Zap, colorClass: "text-[var(--color-glow-cyan)]" },
+        bl: { title: "ACTIVE_STAFF", value: "8", detail: "4 ON BENCH", icon: Users, colorClass: "text-blue-400" },
+        mr: { items: [ { label: 'OT_HRS', val: '14' }, { label: 'RATING', val: '4.9' } ], title: 'STAT_NODE_08' }
+    },
+    8: {
+        tl: { title: "CUSTOMERS", value: "1.2K", detail: "RECURRING", icon: UserPlus, colorClass: "text-green-400" },
+        bl: { title: "AVG_LTV", value: "₹4.5K", detail: "UP 5%", icon: TrendingUp, colorClass: "text-blue-400" },
+        mr: { items: [ { label: 'CLV', val: '₹12K' }, { label: 'BRND_SCR', val: '92' } ], title: 'STAT_NODE_09' }
+    },
+    9: {
+        tl: { title: "VENDORS", value: "14", detail: "3 ACTIVE PO", icon: Store, colorClass: "text-blue-400" },
+        bl: { title: "LEAD_TIME", value: "24H", detail: "TOP TIER", icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
+        mr: { items: [ { label: 'PO_VAL', val: '1.2L' }, { label: 'CREDIT', val: '5L' } ], title: 'STAT_NODE_10' }
+    },
+    10: {
+        tl: { title: "ANALYTICS", value: "SYNC", detail: "REAL-TIME", icon: BarChart3, colorClass: "text-[var(--color-glow-cyan)]" },
+        bl: { title: "Uptime", value: "99.9%", detail: "GLOBAL_CLUSTER", icon: ShieldCheck, colorClass: "text-green-400" },
+        mr: { items: [ { label: 'X_SCALE', val: '4.2x' }, { label: 'SYNC_L', val: '2MS' } ], title: 'STAT_NODE_11' }
+    }
+  };
+
+  const currentCards = cardsMap[activeIdx] || cardsMap[0];
+
   return (
-    <section id="setbin-repair" className="py-32 relative overflow-hidden bg-transparent scroll-mt-20">
-      {/* Soft Glow Background */}
-      <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-gradient-to-r from-[var(--color-glow-blue)]/5 via-[var(--color-glow-cyan)]/10 to-[var(--color-glow-purple)]/5 blur-[100px]" />
-      </div>
+    <section id="setbin-repair" className="py-12 md:py-20 bg-transparent relative overflow-hidden scroll-mt-20 px-6">
+      
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--color-glow-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-10 -translate-y-1/2 -translate-x-1/4" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-20">
-
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-heading tracking-tight text-white mb-6"
-            dangerouslySetInnerHTML={{ __html: t('pro.title') }}
-          />
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl font-light text-white/70"
-          >
-            {t('pro.desc')}
-          </motion.p>
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* COMPACT HEADER */}
+        <div className="text-center max-w-4xl mx-auto mb-10 space-y-4">
+           <motion.span className="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[8px] font-bold tracking-[0.2em] uppercase">
+             {t('pro.showcase.subheading')}
+           </motion.span>
+           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-heading leading-tight">
+             One System for Your <br/>
+             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)]">Entire Service Business</span>
+           </h2>
         </div>
 
-        {/* Glass Dashboard Mockup */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative max-w-5xl mx-auto rounded-[2rem] border border-white/10 bg-[#030816]/60 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5),auto_auto_auto_auto_rgba(47,128,237,0.1)_inset] overflow-hidden"
-        >
-          {/* Top Bar Mockup */}
-          <div className="flex items-center gap-3 px-6 py-4 bg-white/[0.02] border-b border-white/10 backdrop-blur-md">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-yellow-400" />
-              <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-green-400" />
-            </div>
-            <div className="ml-4 text-xs font-medium tracking-wider text-white/40 font-mono">Service Pro Workspace // Admin</div>
-          </div>
+        {/* CONNECTED STEPPER (COMPACT) */}
+        <div className="relative max-w-5xl mx-auto mb-12 px-2 overflow-x-auto no-scrollbar pb-8">
+           <div className="absolute top-[1.25rem] left-8 right-8 h-[1px] bg-white/5 hidden md:block" />
+           <div className="relative flex justify-between items-center min-w-[900px] lg:min-w-0 px-4">
+             {tabs.map((tab, idx) => {
+               const Icon = tab.icon;
+               const isActive = activeIdx === idx;
+               const isPassed = idx < activeIdx;
 
-          <div className="p-8 md:p-12 relative">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--color-glow-blue)] opacity-10 blur-[100px] rounded-full pointer-events-none" />
+               return (
+                 <div key={tab.id} className="relative z-10 flex flex-col items-center flex-1">
+                    <button 
+                      onClick={() => handleTabManual(idx)}
+                      className={`
+                        w-10 h-10 rounded-[1rem] flex items-center justify-center transition-all duration-500 border
+                        ${isActive 
+                           ? "bg-[var(--color-glow-blue)] text-white border-[var(--color-glow-cyan)] shadow-[0_0_20px_rgba(47,128,237,0.4)]" 
+                           : isPassed 
+                             ? "bg-[#030816] text-[var(--color-glow-cyan)] border-[var(--color-glow-blue)]/50" 
+                             : "bg-[#030816] text-white/20 border-white/5"
+                        }
+                      `}
+                    >
+                      <Icon size={16} />
+                    </button>
+                    <span className={`mt-3 text-[7px] font-bold tracking-[0.1em] uppercase transition-colors leading-tight ${isActive ? "text-white" : "text-white/20"}`}>
+                       {(tab.label)}
+                    </span>
 
-            {/* Workflow Timeline */}
-            <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6 py-12 z-10">
-              {/* Connecting Line (Desktop) */}
-              <div className="hidden md:block absolute top-1/2 left-8 right-8 h-0.5 bg-white/10 -z-10 -translate-y-1/2 overflow-hidden shadow-[0_0_10px_rgba(47,128,237,0.2)]">
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-[var(--color-glow-blue)] via-[var(--color-glow-cyan)] to-[var(--color-glow-purple)] shadow-[0_0_10px_var(--color-glow-cyan)]"
-                  initial={{ width: "0%" }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
-                />
+                    {/* Progress Segment */}
+                    {idx < tabs.length - 1 && (
+                      <div className="absolute left-[50%] top-[1.25rem] h-[1px] bg-white/5 w-full hidden md:block z-[-1]">
+                         {isActive && (
+                           <motion.div 
+                             className="h-full bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] shadow-[0_0_10px_rgba(0,240,255,0.3)]"
+                             initial={{ width: "0%" }}
+                             animate={{ width: `${progress}%` }}
+                           />
+                         )}
+                         {isPassed && <div className="h-full w-full bg-[var(--color-glow-blue)]/30" />}
+                      </div>
+                    )}
+                 </div>
+               );
+             })}
+           </div>
+        </div>
+
+        {/* COMPACT SHOWCASE HUB */}
+        <div className="relative max-w-4xl mx-auto min-h-[450px]">
+           {/* FLOATING CARDS (SMALLER/REPOSITIONED) */}
+           <div className="absolute -left-16 lg:-left-32 top-10 z-30 hidden lg:block scale-90">
+              <AnimatePresence mode="wait">
+                 <FeatureCard key={activeIdx} {...currentCards.tl} />
+              </AnimatePresence>
+           </div>
+           <div className="absolute -left-16 lg:-left-24 bottom-10 z-30 hidden lg:block scale-90">
+              <AnimatePresence mode="wait">
+                 <FeatureCard key={activeIdx} {...currentCards.bl} />
+              </AnimatePresence>
+           </div>
+           <div className="absolute -right-16 lg:-right-32 top-1/2 -translate-y-1/2 z-30 hidden lg:block scale-90">
+              <AnimatePresence mode="wait">
+                 <RulesListCard key={activeIdx} {...currentCards.mr} />
+              </AnimatePresence>
+           </div>
+
+           {/* MAIN DASHBOARD (FIXED COMPACT HEIGHT) */}
+           <motion.div className="relative rounded-[2.5rem] border border-white/10 bg-[#030816]/95 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden h-[420px] lg:h-[480px] flex flex-col">
+              {/* Window Header */}
+              <div className="px-6 py-4 flex items-center justify-between border-b border-white/5 bg-white/[0.01]">
+                 <div className="flex gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/20" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/20" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-glow-cyan)]/20" />
+                 </div>
+                 <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-glow-cyan)] animate-pulse shadow-[0_0_8px_var(--color-glow-cyan)]" />
+                    <span className="text-[9px] font-mono text-white/40 tracking-[0.2em] uppercase">SETBIN REPAIR // {tabs[activeIdx].id}</span>
+                 </div>
               </div>
 
-              {steps.map((step, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 + (i * 0.2) }}
-                  className="relative flex flex-row md:flex-col items-center gap-4 group w-full md:w-auto"
-                >
-                  {/* Connecting Line (Mobile) */}
-                  {i !== steps.length - 1 && (
-                    <div className="md:hidden absolute left-[1.1rem] top-12 bottom-[-40px] w-0.5 bg-gradient-to-b from-[var(--color-glow-blue)] to-white/10 -z-10" />
-                  )}
+              <div className="flex-1 p-8 lg:p-12 overflow-hidden relative">
+                 <AnimatePresence mode="wait">
+                   <motion.div
+                     key={activeIdx}
+                     initial={{ opacity: 0, x: 40, filter: "blur(8px)" }}
+                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                     exit={{ opacity: 0, x: -40, filter: "blur(8px)" }}
+                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                     className="h-full"
+                   >
+                     {dashboardViews[activeIdx]}
+                   </motion.div>
+                 </AnimatePresence>
+              </div>
 
-                  <div 
-                    className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#030816] border border-white/20 text-white shadow-lg group-hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
-                  >
-                     <div 
-                        className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity"
-                        style={{ backgroundColor: step.color }}
-                     />
-                    <div className="relative z-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                      {step.icon}
+              {/* Status Bar */}
+              <div className="px-8 py-4 border-t border-white/5 flex items-center justify-between">
+                 <div className="flex items-center gap-6">
+                    <div className="flex gap-1">
+                       {tabs.map((_, i) => (
+                         <div key={i} className={`h-1.5 rounded-full transition-all duration-700 ${i === activeIdx ? 'w-6 bg-[var(--color-glow-cyan)]' : 'w-1.5 bg-white/5'}`} />
+                       ))}
                     </div>
-                  </div>
-                  <div className="flex flex-col md:items-center mt-2 px-2">
-                    <span className="text-xs font-medium text-white/80 uppercase tracking-wider group-hover:text-white transition-colors text-center">{step.name}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                 </div>
+                 <div className="text-[8px] font-mono text-white/10 flex items-center gap-4">
+                    <History size={10} /> <span>AUTO_NAV_ACTIVE</span>
+                    <span className="bg-white/5 px-2 py-0.5 rounded">MOD_0{activeIdx+1}</span>
+                 </div>
+              </div>
+           </motion.div>
+        </div>
 
-            {/* Dummy dashboard metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 relative z-10">
-              <div className="p-8 rounded-3xl bg-white/5 border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-md relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-glow-blue)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">Active Repairs</div>
-                <div className="text-5xl font-heading font-light text-white mt-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">142</div>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-glow-blue)] to-transparent opacity-50" />
-              </div>
-              <div className="p-8 rounded-3xl bg-white/5 border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-md relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-glow-cyan)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">Avg. Diagnosis Time</div>
-                <div className="text-5xl font-heading font-light text-white mt-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">12<span className="text-2xl text-white/60 ml-1">min</span></div>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-glow-cyan)] to-transparent opacity-50" />
-              </div>
-              <div className="p-8 rounded-3xl bg-white/5 border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-md relative overflow-hidden group">
-                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-glow-purple)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">Parts Status</div>
-                <div className="flex items-center gap-3 mt-4">
-                  <div className="w-3 h-3 rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF] animate-pulse" />
-                  <div className="text-3xl font-heading font-light text-white tracking-wide">OPTIMAL</div>
-                </div>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-glow-purple)] to-transparent opacity-50" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        {/* COMPACT CTA */}
+        <div className="mt-16 text-center">
+            <button className="px-12 py-5 bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] text-white rounded-[1.5rem] font-bold shadow-[0_20px_50px_rgba(47,128,237,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto group text-sm">
+               Start Your Automation
+               <ArrowRight className="group-hover:translate-x-1 transition-transform w-4 h-4" />
+            </button>
+        </div>
       </div>
     </section>
   );
