@@ -16,7 +16,7 @@ export default function ServiceProSection() {
   ];
 
   return (
-    <section id="service-pro" className="py-32 relative overflow-hidden bg-transparent scroll-mt-20">
+    <section id="setbin-repair" className="py-32 relative overflow-hidden bg-transparent scroll-mt-20">
       {/* Soft Glow Background */}
       <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-gradient-to-r from-[var(--color-glow-blue)]/5 via-[var(--color-glow-cyan)]/10 to-[var(--color-glow-purple)]/5 blur-[100px]" />

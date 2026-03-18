@@ -82,7 +82,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/80">
           {[
             { name: t('nav.connect'), id: 'nav-connect', href: '#connect' },
-            { name: t('nav.repair'), id: 'nav-repair', href: '#service-pro' },
+            { name: t('nav.repair'), id: 'nav-repair', href: '#setbin-repair' },
             { name: t('nav.schemic'), id: 'nav-schemic-ai', href: '#schemic-ai' }
           ].map((item) => (
             <a 

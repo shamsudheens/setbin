@@ -16,9 +16,9 @@ const pillars = [
     accentColor: "#2F80ED",
     svg: (index: number, hoveredIndex: number | null) => (
       <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 400 400">
-        <motion.circle 
-          cx="200" cy="200" r="100" 
-          stroke="#2F80ED" strokeWidth="1" fill="none" 
+        <motion.circle
+          cx="200" cy="200" r="100"
+          stroke="#2F80ED" strokeWidth="1" fill="none"
           strokeDasharray="5 5"
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -33,7 +33,7 @@ const pillars = [
               cy={Number(cy.toFixed(3))}
               r="4"
               fill="#2F80ED"
-              animate={{ 
+              animate={{
                 scale: hoveredIndex === index ? [1, 1.5, 1] : 1,
                 opacity: hoveredIndex === index ? [0.5, 1, 0.5] : 0.5
               }}
@@ -51,19 +51,19 @@ const pillars = [
     descKey: "platform.pillar2.subtitle",
     hoverKey: "platform.pillar2.body",
     ctaKey: "platform.viewMore",
-    href: "#service-pro",
+    href: "#setbin-repair",
     accentColor: "#F2994A",
     svg: (index: number, hoveredIndex: number | null) => (
       <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 400 400">
-        <motion.path 
-          d="M100 200 L300 200 M200 100 L200 300" 
+        <motion.path
+          d="M100 200 L300 200 M200 100 L200 300"
           stroke="#F2994A" strokeWidth="1"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
         />
-        <motion.rect 
-          x="150" y="150" width="100" height="100" 
+        <motion.rect
+          x="150" y="150" width="100" height="100"
           stroke="#F2994A" strokeWidth="1" fill="none"
           animate={{ rotate: hoveredIndex === index ? 90 : 0 }}
           transition={{ duration: 1 }}
@@ -83,14 +83,14 @@ const pillars = [
     accentColor: "#00F0FF",
     svg: (index: number, hoveredIndex: number | null) => (
       <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 400 400">
-        <motion.path 
-          d="M150 150 Q200 100 250 150 T350 150" 
+        <motion.path
+          d="M150 150 Q200 100 250 150 T350 150"
           stroke="#00F0FF" strokeWidth="1" fill="none"
           animate={{ d: hoveredIndex === index ? "M50 200 Q200 50 350 200" : "M150 150 Q200 100 250 150 T350 150" }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
         />
-        <motion.path 
-          d="M150 250 Q200 300 250 250 T350 250" 
+        <motion.path
+          d="M150 250 Q200 300 250 250 T350 250"
           stroke="#00F0FF" strokeWidth="1" fill="none"
           animate={{ d: hoveredIndex === index ? "M50 200 Q200 350 350 200" : "M150 250 Q200 300 250 250 T350 250" }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
@@ -103,7 +103,7 @@ const pillars = [
 function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isScrollingRef }: any) {
   const { t } = useLanguage();
   const cardRef = useRef<HTMLDivElement>(null);
-  
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -112,7 +112,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
 
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-  
+
   // For spotlight effect
   const spotlightX = useTransform(mouseXSpring, [-0.5, 0.5], [0, 100]);
   const spotlightY = useTransform(mouseYSpring, [-0.5, 0.5], [0, 100]);
@@ -190,10 +190,10 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
       }}
       className="relative h-[400px] md:h-[500px] w-full group cursor-pointer"
     >
-      <div 
+      <div
         className="block h-full w-full"
       >
-        <div 
+        <div
           className="relative h-full w-full rounded-[32px] border border-white/10 bg-[#0A121E]/60 backdrop-blur-3xl p-10 overflow-hidden transition-all duration-500 group-hover:border-white/30 group-hover:bg-[#0D1826]/80 flex flex-col justify-end"
           style={{
             boxShadow: hoveredIndex === index ? `0 20px 80px -20px ${pillar.accentColor}44` : 'none',
@@ -205,7 +205,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
           </div>
 
           {/* Fixed Light Leak / Spotlight Effect */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
             style={{
               background: useTransform(
@@ -225,7 +225,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
               </span>
               <h3 className="text-3xl md:text-4xl font-heading font-medium tracking-tight text-white mb-2 leading-none uppercase">
                 {pillar.id === "schemic" ? (
-                   <>SCHEMIC <span style={{ color: pillar.accentColor }}>AI</span></>
+                  <>SCHEMIC <span style={{ color: pillar.accentColor }}>AI</span></>
                 ) : t(pillar.titleKey)}
               </h3>
             </motion.div>
@@ -248,7 +248,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
                     {t(pillar.hoverKey)}
                   </p>
                   <div className="pt-2">
-                    <span 
+                    <span
                       onClick={(e) => {
                         e.stopPropagation();
                         handleScroll(e);
@@ -266,7 +266,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
 
           {/* Edge Highlight Glow */}
           <motion.div
-            animate={{ 
+            animate={{
               opacity: (hoveredIndex === index) ? 1 : 0,
             }}
             className="absolute inset-0 rounded-[32px] border-2 border-transparent transition-opacity duration-500 pointer-events-none"
@@ -276,7 +276,7 @@ function TiltCard({ pillar, index, hoveredIndex, setHoveredIndex, isMobile, isSc
               WebkitMaskComposite: "xor",
             }}
           />
-          
+
           {/* Internal Top Light Reflection */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
         </div>
@@ -300,15 +300,15 @@ export default function PillarsSection() {
 
   return (
     <section id="about" className="relative py-24 md:py-32 overflow-hidden bg-transparent">
-      
+
       {/* Global Standard Glass Grid Background - Matched to other sections (64px) */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
-      
+
       {/* Intensified Background Ambience */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Soft Background Side Glow - Matching "others" style */}
         <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[var(--color-glow-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15] -translate-y-1/2 -translate-x-1/4" />
-        
+
         {/* Center Soft Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(47,128,237,0.12)_0%,transparent_70%)]" />
       </div>
@@ -324,8 +324,8 @@ export default function PillarsSection() {
             <div className="w-1.5 h-1.5 rounded-full bg-[#2F80ED] shadow-[0_0_10px_#2F80ED] animate-pulse" />
             <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em]">{t("pillars.chip")}</span>
           </motion.div>
-          
-          <motion.h2 
+
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -354,11 +354,11 @@ export default function PillarsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8 perspective-2000">
           {pillars.map((pillar, index) => (
-            <TiltCard 
-              key={pillar.id} 
-              pillar={pillar} 
-              index={index} 
-              hoveredIndex={hoveredIndex} 
+            <TiltCard
+              key={pillar.id}
+              pillar={pillar}
+              index={index}
+              hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
               isMobile={isMobile}
               isScrollingRef={isScrollingRef}
@@ -367,11 +367,11 @@ export default function PillarsSection() {
         </div>
 
         <motion.div
-           initial={{ opacity: 0 }}
-           whileInView={{ opacity: 1 }}
-           viewport={{ once: true }}
-           transition={{ delay: 0.5 }}
-           className="mt-40 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="mt-40 text-center"
         >
           <div className="h-px w-full bg-gradient-to-r from-transparent via-white/5 to-transparent mb-12" />
           <p className="text-white/20 text-sm font-light tracking-[0.2em] uppercase">{t("pillars.footer")}</p>
