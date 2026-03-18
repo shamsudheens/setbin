@@ -582,14 +582,26 @@ export default function ServiceProSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* COMPACT HEADER */}
-        <div className="text-center max-w-4xl mx-auto mb-10 space-y-4">
-           <motion.span className="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[8px] font-bold tracking-[0.2em] uppercase">
+        <div className="text-center w-full max-w-4xl mx-auto mb-16 space-y-6">
+           <motion.div 
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-[0.2em] uppercase"
+           >
+             <Briefcase size={14} className="animate-pulse" />
              {t('pro.showcase.subheading')}
-           </motion.span>
-           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-heading leading-tight">
-             One System for Your <br/>
-             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)]">Entire Service Business</span>
-           </h2>
+           </motion.div>
+           
+           <motion.h2 
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ delay: 0.1 }}
+             className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight text-white/90 leading-[1.1]"
+           >
+             One System for Your <br/> Entire Service Business
+           </motion.h2>
         </div>
 
         {/* CONNECTED STEPPER (COMPACT) */}

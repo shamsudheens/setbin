@@ -198,18 +198,36 @@ export default function ConnectSection() {
         {/* SECTION 1: INTRO */}
         <StoryCard index={0} total={totalCards} accentColor="#2F80ED">
           {() => (
-            <div className="text-center w-full max-w-4xl mx-auto flex flex-col justify-center h-full">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-xs font-bold tracking-widest text-[#2F80ED] uppercase mb-8 self-center">
+            <div className="text-center w-full max-w-4xl mx-auto flex flex-col justify-center h-full space-y-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2F80ED]/10 border border-[#2F80ED]/20 text-[#2F80ED] text-xs font-bold tracking-[0.2em] uppercase mx-auto"
+              >
+                <Network size={14} className="animate-pulse" />
                 {t('connect.story.chip')}
-              </span>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight mb-8 leading-[1.1]">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2F80ED] to-[#00F0FF]">
-                  {t('connect.story.s1.title')}
-                </span>
-              </h2>
-              <p className="text-lg md:text-xl text-white/60 font-light leading-relaxed max-w-2xl mx-auto">
+              </motion.div>
+              
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight text-white/90 leading-[1.1]"
+              >
+                {t('connect.story.s1.title')}
+              </motion.h2>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-lg md:text-xl font-light text-white/50 leading-relaxed max-w-2xl mx-auto"
+              >
                 {t('connect.story.s1.desc')}
-              </p>
+              </motion.p>
             </div>
           )}
         </StoryCard>
