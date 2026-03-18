@@ -6,7 +6,7 @@ import ServiceProSection from "@/components/ServiceProSection";
 import SchemicAISection from "@/components/SchemicAISection";
 import GlobalNetwork from "@/components/GlobalNetwork";
 import ContactSection from "@/components/ContactSection";
-import FinalCTA from "@/components/FinalCTA";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
       <SchemicAISection />
       <GlobalNetwork />
       <ContactSection />
-      <FinalCTA />
+      <Footer />
     </main>
   );
 }

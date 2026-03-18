@@ -572,6 +572,21 @@ export default function ServiceProSection() {
 
   const currentCards = cardsMap[activeIdx] || cardsMap[0];
 
+  const tabColors = [
+    "var(--color-glow-cyan)",   // 0: Overview
+    "#8B5CF6",                  // 1: Daybook (purple)
+    "#3B82F6",                  // 2: Jobs (blue)
+    "#F59E0B",                  // 3: Billing (amber)
+    "#EF4444",                  // 4: Expenses (red)
+    "#F97316",                  // 5: Dues (orange)
+    "#10B981",                  // 6: Inventory (emerald)
+    "#06B6D4",                  // 7: Staff (cyan)
+    "#84CC16",                  // 8: Customers (lime)
+    "#6366F1",                  // 9: Vendors (indigo)
+    "#EC4899",                  // 10: Reports (pink)
+  ];
+  const activeColor = tabColors[activeIdx] || "var(--color-glow-cyan)";
+
   return (
     <section id="setbin-repair" className="py-12 md:py-20 bg-transparent relative overflow-hidden scroll-mt-20 px-6">
       
@@ -605,7 +620,7 @@ export default function ServiceProSection() {
         </div>
 
         {/* CONNECTED STEPPER (COMPACT) */}
-        <div className="relative max-w-5xl mx-auto mb-12 px-2 overflow-x-auto no-scrollbar pb-8">
+        <div className="relative max-w-5xl mx-auto mb-16 px-2 overflow-x-auto no-scrollbar pb-8">
            <div className="absolute top-[1.25rem] left-8 right-8 h-[1px] bg-white/5 hidden md:block" />
            <div className="relative flex justify-between items-center min-w-[900px] lg:min-w-0 px-4">
              {tabs.map((tab, idx) => {
@@ -620,16 +635,24 @@ export default function ServiceProSection() {
                       className={`
                         w-10 h-10 rounded-[1rem] flex items-center justify-center transition-all duration-500 border
                         ${isActive 
-                           ? "bg-[var(--color-glow-blue)] text-white border-[var(--color-glow-cyan)] shadow-[0_0_20px_rgba(47,128,237,0.4)]" 
+                           ? "bg-[#030816] text-white shadow-[0_0_20px_rgba(47,128,237,0.4)]" 
                            : isPassed 
                              ? "bg-[#030816] text-[var(--color-glow-cyan)] border-[var(--color-glow-blue)]/50" 
                              : "bg-[#030816] text-white/20 border-white/5"
                         }
                       `}
+                      style={{
+                          borderColor: isActive ? activeColor : undefined,
+                          color: isActive ? activeColor : undefined,
+                          boxShadow: isActive ? `0 0 20px ${activeColor}40` : undefined,
+                      }}
                     >
                       <Icon size={16} />
                     </button>
-                    <span className={`mt-3 text-[7px] font-bold tracking-[0.1em] uppercase transition-colors leading-tight ${isActive ? "text-white" : "text-white/20"}`}>
+                    <span 
+                      className={`mt-3 text-[7px] font-bold tracking-[0.1em] uppercase transition-colors leading-tight`}
+                      style={{ color: isActive ? activeColor : "rgba(255,255,255,0.2)" }}
+                    >
                        {(tab.label)}
                     </span>
 
@@ -638,12 +661,13 @@ export default function ServiceProSection() {
                       <div className="absolute left-[50%] top-[1.25rem] h-[1px] bg-white/5 w-full hidden md:block z-[-1]">
                          {isActive && (
                            <motion.div 
-                             className="h-full bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] shadow-[0_0_10px_rgba(0,240,255,0.3)]"
+                             className="h-full shadow-[0_0_10px_rgba(0,240,255,0.3)]"
+                             style={{ background: `linear-gradient(to right, ${activeColor}, transparent)` }}
                              initial={{ width: "0%" }}
                              animate={{ width: `${progress}%` }}
                            />
                          )}
-                         {isPassed && <div className="h-full w-full bg-[var(--color-glow-blue)]/30" />}
+                         {isPassed && <div className="h-full w-full bg-white/20" />}
                       </div>
                     )}
                  </div>
@@ -653,68 +677,96 @@ export default function ServiceProSection() {
         </div>
 
         {/* COMPACT SHOWCASE HUB */}
-        <div className="relative max-w-4xl mx-auto min-h-[450px]">
-           {/* FLOATING CARDS (SMALLER/REPOSITIONED) */}
-           <div className="absolute -left-16 lg:-left-32 top-10 z-30 hidden lg:block scale-90">
-              <AnimatePresence mode="wait">
-                 <FeatureCard key={activeIdx} {...currentCards.tl} />
-              </AnimatePresence>
+        <div className="relative max-w-4xl mx-auto min-h-[500px]" style={{ perspective: "1500px" }}>
+           
+           {/* BACKDROP FOR REALISM (Chargebee style Stage) */}
+           <div className="absolute inset-x-0 -inset-y-12 lg:-inset-x-16 bg-gradient-to-b from-[#030816]/40 to-[#030816]/90 border border-white/5 rounded-[3rem] overflow-hidden -z-20 shadow-2xl backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-60" />
+              
+              {/* Dynamic Bottom Glow */}
+              <motion.div 
+                 animate={{ backgroundColor: activeColor }}
+                 transition={{ duration: 1.5, ease: "easeInOut" }}
+                 className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[80%] h-[300px] rounded-full filter blur-[100px] opacity-15"
+              />
+              <motion.div 
+                 animate={{ backgroundColor: activeColor }}
+                 transition={{ duration: 1.5, ease: "easeInOut", delay: 0.1 }}
+                 className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-[40%] h-[150px] rounded-full filter blur-[80px] opacity-20"
+              />
            </div>
-           <div className="absolute -left-16 lg:-left-24 bottom-10 z-30 hidden lg:block scale-90">
-              <AnimatePresence mode="wait">
-                 <FeatureCard key={activeIdx} {...currentCards.bl} />
-              </AnimatePresence>
-           </div>
-           <div className="absolute -right-16 lg:-right-32 top-1/2 -translate-y-1/2 z-30 hidden lg:block scale-90">
-              <AnimatePresence mode="wait">
-                 <RulesListCard key={activeIdx} {...currentCards.mr} />
-              </AnimatePresence>
-           </div>
+           <motion.div
+             animate={{
+                rotateY: activeIdx % 2 === 0 ? 6 : -6,
+                rotateX: activeIdx % 2 === 0 ? 3 : 4,
+                scale: 0.95,
+             }}
+             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+             style={{ transformStyle: "preserve-3d" }}
+             className="w-full relative"
+           >
+             {/* FLOATING CARDS (SMALLER/REPOSITIONED) */}
+             <div className="absolute -left-16 lg:-left-32 top-10 z-30 hidden lg:block scale-90" style={{ transform: "translateZ(80px)" }}>
+                <AnimatePresence mode="wait">
+                   <FeatureCard key={activeIdx} {...currentCards.tl} />
+                </AnimatePresence>
+             </div>
+             <div className="absolute -left-16 lg:-left-24 bottom-10 z-30 hidden lg:block scale-90" style={{ transform: "translateZ(100px)" }}>
+                <AnimatePresence mode="wait">
+                   <FeatureCard key={activeIdx} {...currentCards.bl} />
+                </AnimatePresence>
+             </div>
+             <div className="absolute -right-16 lg:-right-32 top-1/2 -translate-y-1/2 z-30 hidden lg:block scale-90" style={{ transform: "translateZ(90px)" }}>
+                <AnimatePresence mode="wait">
+                   <RulesListCard key={activeIdx} {...currentCards.mr} />
+                </AnimatePresence>
+             </div>
 
-           {/* MAIN DASHBOARD (FIXED COMPACT HEIGHT) */}
-           <motion.div className="relative rounded-[2.5rem] border border-white/10 bg-[#030816]/95 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden h-[420px] lg:h-[480px] flex flex-col">
-              {/* Window Header */}
-              <div className="px-6 py-4 flex items-center justify-between border-b border-white/5 bg-white/[0.01]">
-                 <div className="flex gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/20" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/20" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-glow-cyan)]/20" />
-                 </div>
-                 <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-glow-cyan)] animate-pulse shadow-[0_0_8px_var(--color-glow-cyan)]" />
-                    <span className="text-[9px] font-mono text-white/40 tracking-[0.2em] uppercase">SETBIN REPAIR // {tabs[activeIdx].id}</span>
-                 </div>
-              </div>
+             {/* MAIN DASHBOARD (FIXED COMPACT HEIGHT) */}
+             <div className="relative rounded-[2.5rem] border border-white/10 bg-[#030816]/95 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden h-[420px] lg:h-[480px] flex flex-col" style={{ transform: "translateZ(0px)" }}>
+                {/* Window Header */}
+                <div className="px-6 py-4 flex items-center justify-between border-b border-white/5 bg-white/[0.01]">
+                   <div className="flex gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400/20" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/20" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-glow-cyan)]/20" />
+                   </div>
+                   <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-glow-cyan)] animate-pulse shadow-[0_0_8px_var(--color-glow-cyan)]" />
+                      <span className="text-[9px] font-mono text-white/40 tracking-[0.2em] uppercase">SETBIN REPAIR // {tabs[activeIdx].id}</span>
+                   </div>
+                </div>
 
-              <div className="flex-1 p-8 lg:p-12 overflow-hidden relative">
-                 <AnimatePresence mode="wait">
-                   <motion.div
-                     key={activeIdx}
-                     initial={{ opacity: 0, x: 40, filter: "blur(8px)" }}
-                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                     exit={{ opacity: 0, x: -40, filter: "blur(8px)" }}
-                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                     className="h-full"
-                   >
-                     {dashboardViews[activeIdx]}
-                   </motion.div>
-                 </AnimatePresence>
-              </div>
+                <div className="flex-1 p-8 lg:p-12 overflow-hidden relative">
+                   <AnimatePresence mode="wait">
+                     <motion.div
+                       key={activeIdx}
+                       initial={{ opacity: 0, x: 40, filter: "blur(8px)" }}
+                       animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                       exit={{ opacity: 0, x: -40, filter: "blur(8px)" }}
+                       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                       className="h-full"
+                     >
+                       {dashboardViews[activeIdx]}
+                     </motion.div>
+                   </AnimatePresence>
+                </div>
 
-              {/* Status Bar */}
-              <div className="px-8 py-4 border-t border-white/5 flex items-center justify-between">
-                 <div className="flex items-center gap-6">
-                    <div className="flex gap-1">
-                       {tabs.map((_, i) => (
-                         <div key={i} className={`h-1.5 rounded-full transition-all duration-700 ${i === activeIdx ? 'w-6 bg-[var(--color-glow-cyan)]' : 'w-1.5 bg-white/5'}`} />
-                       ))}
-                    </div>
-                 </div>
-                 <div className="text-[8px] font-mono text-white/10 flex items-center gap-4">
-                    <History size={10} /> <span>AUTO_NAV_ACTIVE</span>
-                    <span className="bg-white/5 px-2 py-0.5 rounded">MOD_0{activeIdx+1}</span>
-                 </div>
-              </div>
+                {/* Status Bar */}
+                <div className="px-8 py-4 border-t border-white/5 flex items-center justify-between">
+                   <div className="flex items-center gap-6">
+                      <div className="flex gap-1">
+                         {tabs.map((_, i) => (
+                           <div key={i} className={`h-1.5 rounded-full transition-all duration-700 ${i === activeIdx ? 'w-6 bg-[var(--color-glow-cyan)]' : 'w-1.5 bg-white/5'}`} />
+                         ))}
+                      </div>
+                   </div>
+                   <div className="text-[8px] font-mono text-white/10 flex items-center gap-4">
+                      <History size={10} /> <span>AUTO_NAV_ACTIVE</span>
+                      <span className="bg-white/5 px-2 py-0.5 rounded">MOD_0{activeIdx+1}</span>
+                   </div>
+                </div>
+             </div>
            </motion.div>
         </div>
 
