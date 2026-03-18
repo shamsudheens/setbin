@@ -90,7 +90,6 @@ export default function Footer() {
                   { label: "SETBIN Connect", href: "#connect" },
                   { label: "SETBIN Repair", href: "#setbin-repair" },
                   { label: "Schemic AI", href: "#schemic-ai" },
-                  { label: "Global Network", href: "#connect" },
                 ].map(({ label, href }) => (
                   <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
                 ))}
@@ -133,7 +132,7 @@ export default function Footer() {
               <div className="space-y-3 flex flex-col items-start">
                 {[
                   { label: "Verified Suppliers", href: "#connect" },
-                  { label: "Global Distributors", href: "#connect" },
+                  { label: "Verified Distributors", href: "#connect" },
                   { label: "Logistics Partners", href: "#connect" },
                   { label: "Drop-Shipping", href: "#connect" },
                   { label: "Technician Hub", href: "#connect" },

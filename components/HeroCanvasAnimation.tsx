@@ -140,27 +140,37 @@ export default function HeroCanvasAnimation() {
            
            {/* STAGE 1 — Brand Identity */}
            <motion.div 
-             className="absolute flex flex-col items-center pointer-events-none gap-6 w-full max-w-5xl px-4 overflow-hidden"
+             className="absolute flex flex-col items-center pointer-events-none gap-5 w-full max-w-5xl px-4 overflow-hidden"
              style={{ 
                opacity: useTransform(smoothProgress, [0, 0.05, 0.10, 0.14], [0, 1, 1, 0]),
                y: useTransform(smoothProgress, [0, 0.05, 0.10, 0.14], [40, 0, 0, -40]),
                scale: useTransform(smoothProgress, [0, 0.05, 0.10, 0.14], [0.92, 1, 1, 1.04])
              }}
            >
-             {/* <div className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-2">
-               <span className="text-xs text-white/60 tracking-[0.3em] uppercase font-medium">Est. 2024</span>
-             </div> */}
-             <h1 className="text-7xl md:text-[9rem] lg:text-[11rem] font-heading tracking-tighter leading-none"
-               style={{ 
-                 backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #c8d8f0 40%, #5b9bd5 70%, #2f80ed 100%)',
+             {/* Badge */}
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+               <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-glow-cyan)] shadow-[0_0_8px_var(--color-glow-cyan)] animate-pulse" />
+               <span className="text-[11px] text-white/50 tracking-[0.25em] uppercase font-medium">Est. 2024 · The Digital Backbone</span>
+             </div>
+
+             {/* Logo-style SETBIN text: white SET + gradient BIN */}
+             <h1 className="text-7xl md:text-[9rem] lg:text-[11rem] font-heading tracking-tighter leading-none select-none">
+               <span style={{ color: '#ffffff', filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.25))' }}>SET</span><span style={{
+                 backgroundImage: 'linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%)',
                  WebkitBackgroundClip: 'text',
                  WebkitTextFillColor: 'transparent',
-                 filter: 'drop-shadow(0 0 40px rgba(47,128,237,0.5))'
-               }}>
-               SETBIN
+                 filter: 'drop-shadow(0 0 40px rgba(47,128,237,0.8))'
+               }}>BIN</span>
              </h1>
-             <div className="w-32 h-px bg-gradient-to-r from-transparent via-[var(--color-glow-cyan)] to-transparent" />
-             <p className="text-lg md:text-xl lg:text-2xl text-white/70 font-light max-w-3xl leading-relaxed tracking-wide break-words hyphens-auto">
+
+             {/* Separator */}
+             <div className="flex items-center gap-3 w-48">
+               <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[var(--color-glow-cyan)] opacity-60" />
+               <div className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+               <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[var(--color-glow-cyan)] opacity-60" />
+             </div>
+
+             <p className="text-lg md:text-xl lg:text-2xl text-white/60 font-light max-w-2xl leading-relaxed tracking-wide break-words hyphens-auto">
                {t('hero.stage1.subtitle')}
              </p>
            </motion.div>
@@ -174,14 +184,19 @@ export default function HeroCanvasAnimation() {
                scale: useTransform(smoothProgress, [0.15, 0.20, 0.25, 0.29], [0.94, 1, 1, 1.03])
              }}
            >
+             {/* Stage tag */}
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F2994A]/30 bg-[#F2994A]/10 backdrop-blur-sm">
+               <span className="w-1.5 h-1.5 rounded-full bg-[#F2994A] animate-pulse" />
+               <span className="text-[11px] text-[#F2994A] tracking-[0.2em] uppercase font-semibold">The Challenge</span>
+             </div>
              <h2 
-               className="text-3xl md:text-5xl lg:text-6xl font-heading tracking-tight leading-[1.2] text-white break-words hyphens-auto"
+               className="text-3xl md:text-5xl lg:text-6xl font-heading tracking-tight leading-[1.15] text-white break-words hyphens-auto text-center"
                dangerouslySetInnerHTML={{ __html: t('hero.stage2.title') }}
              />
-             <div className="w-16 h-px bg-[var(--color-glow-cyan)] opacity-60" />
-             <div className="px-6 py-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md max-w-2xl w-full">
+             <div className="w-16 h-px bg-[#F2994A]/60" />
+             <div className="px-6 py-4 rounded-2xl border border-[#F2994A]/15 bg-[#F2994A]/5 backdrop-blur-md max-w-2xl w-full">
                <p 
-                 className="text-sm md:text-base lg:text-lg text-[var(--color-glow-cyan)] font-medium uppercase tracking-[0.1em] leading-loose break-words"
+                 className="text-sm md:text-base lg:text-lg text-white/60 font-light uppercase tracking-[0.08em] leading-loose break-words text-center"
                  dangerouslySetInnerHTML={{ __html: t('hero.stage2.subtext') }}
                />
              </div>
@@ -196,8 +211,12 @@ export default function HeroCanvasAnimation() {
                scale: useTransform(smoothProgress, [0.30, 0.35, 0.43, 0.48], [0.94, 1, 1, 1.03])
              }}
            >
+             {/* Stage tag */}
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+               <span className="text-[11px] text-white/40 tracking-[0.2em] uppercase font-medium">The Shift</span>
+             </div>
              <h2 
-               className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight leading-[1.2] break-words hyphens-auto"
+               className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight leading-[1.15] break-words hyphens-auto text-center"
                style={{
                  backgroundImage: 'linear-gradient(135deg, #ffffff 30%, #a8c4e8 70%, #5b9bd5 100%)',
                  WebkitBackgroundClip: 'text',
@@ -205,9 +224,13 @@ export default function HeroCanvasAnimation() {
                }}
                dangerouslySetInnerHTML={{ __html: t('hero.stage3.title') }}
              />
-             <p className="text-xl md:text-2xl text-white/50 font-light max-w-2xl leading-relaxed italic tracking-wide break-words hyphens-auto">
-               — {t('hero.stage3.subtext')}
-             </p>
+             <div className="flex items-center gap-4 max-w-md w-full">
+               <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/20" />
+               <p className="text-base md:text-lg text-white/40 font-light italic tracking-wide break-words hyphens-auto text-center">
+                 {t('hero.stage3.subtext')}
+               </p>
+               <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/20" />
+             </div>
            </motion.div>
 
            {/* STAGE 4 — Solution */}
@@ -219,20 +242,26 @@ export default function HeroCanvasAnimation() {
                scale: useTransform(smoothProgress, [0.49, 0.54, 0.62, 0.68], [0.94, 1, 1, 1.03])
              }}
            >
+             {/* Stage tag */}
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#56ccf2]/30 bg-[#56ccf2]/10 backdrop-blur-sm">
+               <span className="w-1.5 h-1.5 rounded-full bg-[#56ccf2] shadow-[0_0_8px_#56ccf2] animate-pulse" />
+               <span className="text-[11px] text-[#56ccf2] tracking-[0.2em] uppercase font-semibold">Our Solution</span>
+             </div>
              <h2 
-               className="text-3xl md:text-5xl lg:text-6xl font-heading tracking-tight leading-[1.2] break-words hyphens-auto"
+               className="text-3xl md:text-5xl lg:text-6xl font-heading tracking-tight leading-[1.15] break-words hyphens-auto text-center"
                style={{
                  backgroundImage: 'linear-gradient(90deg, #56ccf2 0%, #2f80ed 100%)',
                  WebkitBackgroundClip: 'text',
                  WebkitTextFillColor: 'transparent',
-                 filter: 'drop-shadow(0 0 20px rgba(86,204,242,0.4))'
+                 filter: 'drop-shadow(0 0 25px rgba(86,204,242,0.5))'
                }}
              >
                {t('hero.stage4.title')}
              </h2>
-             <div className="flex flex-col items-center gap-2 px-8 py-4 rounded-2xl border border-[rgba(86,204,242,0.15)] bg-[rgba(47,128,237,0.08)] backdrop-blur-md max-w-2xl w-full">
+             <div className="flex flex-col items-center gap-0 px-8 py-5 rounded-2xl border border-[rgba(86,204,242,0.12)] bg-[rgba(47,128,237,0.06)] backdrop-blur-md max-w-2xl w-full relative overflow-hidden">
+               <div className="absolute top-0 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-[#56ccf2]/40 to-transparent" />
                <p 
-                 className="text-base md:text-xl text-white/80 font-light leading-loose break-words"
+                 className="text-base md:text-xl text-white/70 font-light leading-loose break-words text-center"
                  dangerouslySetInnerHTML={{ __html: t('hero.stage4.subtext') }}
                />
              </div>
@@ -247,15 +276,24 @@ export default function HeroCanvasAnimation() {
                scale: useTransform(smoothProgress, [0.69, 0.74, 0.82, 0.85], [0.94, 1, 1, 1.03])
              }}
            >
+             {/* Stage tag */}
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
+               <span className="text-[11px] text-white/40 tracking-[0.2em] uppercase font-medium">What We Power</span>
+             </div>
              <h2 
-               className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tighter leading-[1.2] text-white break-words hyphens-auto"
-               style={{ filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.2))' }}
+               className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tighter leading-[1.15] text-white break-words hyphens-auto text-center"
+               style={{ filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.18))' }}
              >
                {t('hero.stage5.title')}
              </h2>
-             <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+             <div className="flex items-center gap-3">
+               <div className="w-8 h-px bg-white/20" />
+               <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+               <div className="w-8 h-px bg-white/20" />
+             </div>
              <p 
-               className="text-lg md:text-xl text-white/55 font-light max-w-2xl leading-relaxed tracking-wide break-words hyphens-auto"
+               className="text-lg md:text-xl text-white/50 font-light max-w-2xl leading-relaxed tracking-wide break-words hyphens-auto text-center"
                dangerouslySetInnerHTML={{ __html: t('hero.stage5.subtext') }}
              />
            </motion.div>
@@ -269,48 +307,55 @@ export default function HeroCanvasAnimation() {
                scale: useTransform(smoothProgress, [0.86, 0.89, 0.93, 0.95], [0.92, 1, 1, 1.04])
              }}
            >
-             <h2 
-               className="text-7xl md:text-[9rem] lg:text-[11rem] font-heading tracking-tighter leading-none"
-               style={{
-                 backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #c8d8f0 40%, #5b9bd5 70%, #2f80ed 100%)',
+             {/* Logo-style SETBIN — white SET + gradient BIN, matching navbar logo */}
+             <h2 className="text-7xl md:text-[9rem] lg:text-[11rem] font-heading tracking-tighter leading-none select-none">
+               <span style={{ color: '#ffffff', filter: 'drop-shadow(0 0 35px rgba(255,255,255,0.3))' }}>SET</span><span style={{
+                 backgroundImage: 'linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%)',
                  WebkitBackgroundClip: 'text',
                  WebkitTextFillColor: 'transparent',
-                 filter: 'drop-shadow(0 0 50px rgba(47,128,237,0.7))'
-               }}
-             >
-               SETBIN
+                 filter: 'drop-shadow(0 0 60px rgba(47,128,237,0.9))'
+               }}>BIN</span>
              </h2>
-             <div className="w-48 h-px bg-gradient-to-r from-transparent via-[var(--color-glow-cyan)] to-transparent opacity-70" />
-             <p className="text-sm md:text-base text-[var(--color-glow-cyan)] font-light tracking-[0.2em] uppercase break-words text-center max-w-xl">
+             <div className="flex items-center gap-3 w-56">
+               <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[var(--color-glow-cyan)] opacity-60" />
+               <div className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)] shadow-[0_0_8px_var(--color-glow-cyan)]" />
+               <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[var(--color-glow-cyan)] opacity-60" />
+             </div>
+             <p className="text-sm md:text-base text-white/50 font-light tracking-[0.25em] uppercase break-words text-center max-w-xl">
                {t('hero.stage6.subtext')}
              </p>
            </motion.div>
 
            {/* STAGE 7 — CTA */}
            <motion.div 
-             className="absolute flex flex-col items-center pointer-events-auto gap-10 w-full max-w-4xl px-4 overflow-hidden"
+             className="absolute flex flex-col items-center pointer-events-auto gap-8 w-full max-w-4xl px-4 overflow-hidden"
              style={{ 
                opacity: useTransform(smoothProgress, [0.96, 0.98, 1.0], [0, 1, 1]),
                y: useTransform(smoothProgress, [0.96, 0.98, 1.0], [40, 0, 0]),
                scale: useTransform(smoothProgress, [0.96, 0.98, 1.0], [0.94, 1, 1])
              }}
            >
+             {/* Stage tag */}
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+               <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+               <span className="text-[11px] text-white/50 tracking-[0.2em] uppercase font-medium">Ready to Begin</span>
+             </div>
              <h2 
-               className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tighter leading-[1.15] text-white break-words hyphens-auto"
+               className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tighter leading-[1.15] text-white break-words hyphens-auto text-center"
                style={{ filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.15))' }}
              >
                {t('hero.stage7.title')}
              </h2>
              <a 
-               href="#about" 
-               className="group relative px-10 py-5 rounded-full font-semibold text-lg overflow-hidden transition-transform duration-300 hover:scale-105"
+               href="#connect"
+               className="group relative px-10 py-4 rounded-full font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105"
                style={{
                  background: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(200,220,255,1) 100%)',
                  color: '#0B1624',
-                 boxShadow: '0 0 50px rgba(255,255,255,0.35), 0 0 100px rgba(47,128,237,0.2)'
+                 boxShadow: '0 0 50px rgba(255,255,255,0.3), 0 0 80px rgba(47,128,237,0.2)'
                }}
              >
-               <span className="relative z-10">{t('hero.stage7.btn')} ↓</span>
+               <span className="relative z-10 flex items-center gap-2">{t('hero.stage7.btn')} <span className="text-xl">↓</span></span>
              </a>
            </motion.div>
            
