@@ -2,6 +2,16 @@
 
 import { Instagram, Linkedin, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Link from "next/link";
+
+const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <Link 
+    href={href} 
+    className="text-xs text-white/40 hover:text-[#00F0FF] transition-colors font-light"
+  >
+    {children}
+  </Link>
+);
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -38,19 +48,17 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-[12px] text-white/50 leading-loose max-w-[280px]">
-              India's first integrated platform for electronics repair shops — connecting technicians, 
-              parts suppliers, and AI diagnostics in one ecosystem.
+            <p className="text-white/40 text-sm leading-relaxed mb-6 font-light italic">
+              {t('footer.desc')}
             </p>
 
             {/* Contact Details */}
             <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <MapPin size={13} className="text-[var(--color-glow-cyan)] mt-0.5 shrink-0" />
-                <span className="text-[11px] text-white/40 leading-relaxed">
-                  SETBIN Connect Pvt Ltd<br />
-                  Kochi, Ernakulam, Kerala — India
-                </span>
+              <div className="flex items-start gap-3 group">
+                <MapPin className="w-4 h-4 text-[#00F0FF] mt-1 group-hover:scale-110 transition-transform" />
+                <address className="text-xs text-white/40 not-italic leading-relaxed">
+                  <span dangerouslySetInnerHTML={{ __html: t('footer.address') }} />
+                </address>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={13} className="text-[var(--color-glow-cyan)] shrink-0" />
@@ -81,103 +89,40 @@ export default function Footer() {
 
           {/* CENTER + RIGHT: Nav columns */}
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10">
-
-            {/* Products */}
-            <div>
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mb-5">Platform</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "SETBIN Connect", href: "#connect" },
-                  { label: "SETBIN Repair", href: "#setbin-repair" },
-                  { label: "Schemic AI", href: "#schemic-ai" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
-
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mt-8 mb-5">Hardware</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "Motherboard Diagnostics", href: "#" },
-                  { label: "IC Level Repairs", href: "#" },
-                  { label: "Parts Sourcing", href: "#connect" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
+            <div className="col-span-1">
+              <h4 className="text-[10px] font-bold text-[#00F0FF] uppercase tracking-[0.3em] mb-8">{t('footer.platform')}</h4>
+              <ul className="space-y-4">
+                <li><FooterLink href="#schemic-ai">{t('footer.links.diagnostics')}</FooterLink></li>
+                <li><FooterLink href="#hardware">{t('footer.links.repairs')}</FooterLink></li>
+                <li><FooterLink href="#connect">{t('footer.links.sourcing')}</FooterLink></li>
+              </ul>
             </div>
 
-            {/* SETBIN Repair */}
-            <div>
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mb-5">Workshop Software</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "Service Center ERP", href: "#setbin-repair" },
-                  { label: "Job Management", href: "#setbin-repair" },
-                  { label: "Customer Management", href: "#setbin-repair" },
-                  { label: "Inventory Sync", href: "#setbin-repair" },
-                  { label: "Billing & Invoicing", href: "#setbin-repair" },
-                  { label: "Staff & Roles", href: "#setbin-repair" },
-                  { label: "Vendor Accounts", href: "#setbin-repair" },
-                  { label: "Reports & Analytics", href: "#setbin-repair" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
+            <div className="col-span-1">
+              <h4 className="text-[10px] font-bold text-[#00F0FF] uppercase tracking-[0.3em] mb-8">{t('footer.software')}</h4>
+              <ul className="space-y-4">
+                <li><FooterLink href="#erp">{t('footer.links.erp')}</FooterLink></li>
+                <li><FooterLink href="#inventory">{t('footer.links.inventory')}</FooterLink></li>
+                <li><FooterLink href="#billing">{t('footer.links.billing')}</FooterLink></li>
+              </ul>
             </div>
 
-            {/* Connect Network */}
-            <div>
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mb-5">Connect Network</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "Verified Suppliers", href: "#connect" },
-                  { label: "Verified Distributors", href: "#connect" },
-                  { label: "Logistics Partners", href: "#connect" },
-                  { label: "Drop-Shipping", href: "#connect" },
-                  { label: "Technician Hub", href: "#connect" },
-                  { label: "B2B Marketplace", href: "#connect" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
-
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mt-8 mb-5">Experience</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "Customer Portal", href: "#" },
-                  { label: "Technician Dashboard", href: "#" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
+            <div className="col-span-1">
+              <h4 className="text-[10px] font-bold text-[#00F0FF] uppercase tracking-[0.3em] mb-8">{t('footer.network')}</h4>
+              <ul className="space-y-4">
+                <li><FooterLink href="#suppliers">{t('footer.links.suppliers')}</FooterLink></li>
+                <li><FooterLink href="#logistics">{t('footer.links.logistics')}</FooterLink></li>
+                <li><FooterLink href="#marketplace">{t('footer.links.marketplace')}</FooterLink></li>
+              </ul>
             </div>
 
-            {/* Company */}
-            <div>
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mb-5">Solutions</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "For Freelance Techs", href: "#" },
-                  { label: "For Service Centers", href: "#" },
-                  { label: "For Enterprise Chains", href: "#" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
-
-              <h4 className="text-[10px] text-white/50 uppercase tracking-widest font-bold mt-8 mb-5">Company</h4>
-              <div className="space-y-3 flex flex-col items-start">
-                {[
-                  { label: "About SETBIN", href: "#" },
-                  { label: "Careers", href: "#" },
-                  { label: "Partner Program", href: "#" },
-                  { label: "Privacy Policy", href: "#" },
-                  { label: "Terms of Service", href: "#" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href} className="text-xs text-white/60 hover:text-[var(--color-glow-cyan)] transition-colors">{label}</a>
-                ))}
-              </div>
+            <div className="col-span-1">
+              <h4 className="text-[10px] font-bold text-[#00F0FF] uppercase tracking-[0.3em] mb-8">{t('footer.company')}</h4>
+              <ul className="space-y-4">
+                <li><FooterLink href="/about">{t('footer.links.about')}</FooterLink></li>
+                <li><FooterLink href="/privacy">{t('footer.links.privacy')}</FooterLink></li>
+                <li><FooterLink href="/terms">{t('footer.links.terms')}</FooterLink></li>
+              </ul>
             </div>
           </div>
 
@@ -185,15 +130,13 @@ export default function Footer() {
 
         {/* BOTTOM BAR */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[10px] text-white/25 font-mono">
-            © {new Date().getFullYear()} SETBIN Connect Pvt Ltd. All rights reserved.
+          <p className="text-white/20 text-[10px] tracking-widest uppercase flex items-center gap-2">
+            © {new Date().getFullYear()} SETBIN. {t('footer.rights')}
           </p>
           <div className="flex items-center gap-6">
-            {["Privacy Policy", "Terms", "Disclaimer"].map(item => (
-              <a key={item} href="#" className="text-[10px] text-white/30 hover:text-white transition-colors uppercase tracking-widest">
-                {item}
-              </a>
-            ))}
+            <FooterLink href="/privacy">{t('footer.links.privacy')}</FooterLink>
+            <FooterLink href="/terms">{t('footer.links.terms')}</FooterLink>
+            <FooterLink href="/disclaimer">{t('footer.links.disclaimer')}</FooterLink>
           </div>
         </div>
 

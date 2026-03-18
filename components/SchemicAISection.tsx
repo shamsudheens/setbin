@@ -5,20 +5,21 @@ import { Cpu, Terminal, Activity, ShieldCheck, Zap as ZapIcon, Database, Crossha
 import { useLanguage } from "@/context/LanguageContext";
 import { useState, useEffect, useRef } from "react";
 
-// The AI logs that type out
-const logs = [
-  { level: "info", time: "00:00:01", msg: "Init SCHEMIC_CORE v4.2.1" },
-  { level: "info", time: "00:00:02", msg: "Scanning board architecture: iPhone 14 Pro Max" },
-  { level: "warn", time: "00:00:03", msg: "Irregularity detected on VCC_MAIN power rail" },
-  { level: "error", time: "00:00:04", msg: "FAULT Sensed: High current draw (2.4A)" },
-  { level: "info", time: "00:00:06", msg: "Isolating short to GND..." },
-  { level: "info", time: "00:00:07", msg: "Cross-referencing schematic database..." },
-  { level: "success", time: "00:00:08", msg: "DEFECT IDENTIFIED: Replace Capacitor C2301" },
-  { level: "info", time: "00:00:09", msg: "Generating repair blueprint." }
-];
-
 export default function SchemicAISection() {
   const { t } = useLanguage();
+  
+  // The AI logs that type out
+  const logs = [
+    { level: "info", time: "00:00:01", msg: "Init SCHEMIC_CORE v4.2.1" },
+    { level: "info", time: "00:00:02", msg: "Scanning board architecture: iPhone 14 Pro Max" },
+    { level: "warn", time: "00:00:03", msg: "Irregularity detected on VCC_MAIN power rail" },
+    { level: "error", time: "00:00:04", msg: "FAULT Sensed: High current draw (2.4A)" },
+    { level: "info", time: "00:00:06", msg: "Isolating short to GND..." },
+    { level: "info", time: "00:00:07", msg: "Cross-referencing schematic database..." },
+    { level: "success", time: "00:00:08", msg: t('ai.diagnosis.complete') },
+    { level: "info", time: "00:00:09", msg: t('ai.diagnosis.sub') }
+  ];
+
   const [activeLog, setActiveLog] = useState(0);
   const containerRef = useRef(null);
 
@@ -41,7 +42,7 @@ export default function SchemicAISection() {
   }, [isInView]);
 
   return (
-    <section id="schemic-ai" className="pt-24 md:pt-32 pb-8 relative overflow-hidden bg-transparent scroll-mt-20" ref={containerRef}>
+    <section id="schemic-ai" className="pt-16 md:pt-32 pb-8 relative overflow-hidden bg-transparent scroll-mt-20" ref={containerRef}>
       
       {/* Cinematic Grid & Glow */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
@@ -81,8 +82,8 @@ export default function SchemicAISection() {
            </motion.p>
         </div>
 
-        {/* The Hologram Terminal */}
-        <div className="w-full relative rounded-[2rem] md:rounded-[3rem] border border-white/10 bg-[#060B14]/80 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col md:flex-row h-[750px] md:h-[600px]">
+         {/* The Hologram Terminal */}
+         <div className="w-full relative rounded-[2rem] md:rounded-[3rem] border border-white/10 bg-[#060B14]/80 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col md:flex-row h-[700px] md:h-[600px]">
            
            {/* macOS-style Window Header (Absolute top) */}
            <div className="absolute top-0 left-0 w-full h-12 flex items-center justify-between px-6 border-b border-white/5 bg-white/[0.02] z-20">
@@ -97,11 +98,11 @@ export default function SchemicAISection() {
            </div>
 
            {/* Left Pane: Holographic Motherboard Tracker */}
-           <div className="flex-1 w-full relative border-b md:border-b-0 md:border-r border-white/5 overflow-hidden flex items-center justify-center pt-12 md:pt-0">
+            <div className="flex-1 min-h-[280px] md:min-h-0 w-full relative border-b md:border-b-0 md:border-r border-white/5 overflow-hidden flex items-center justify-center pt-12 md:pt-0">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,240,255,0.05)_0%,transparent_100%)]" />
               
               {/* Complex SVG Motherboard Base */}
-              <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[450px] mt-8">
+               <div className="relative w-[140px] h-[175px] md:w-[400px] md:h-[450px] mt-4 md:mt-8">
                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 500">
                   {/* Outer Frame */}
                   <rect x="50" y="50" width="300" height="400" rx="20" fill="none" stroke="rgba(0,240,255,0.1)" strokeWidth="1" />
@@ -154,11 +155,11 @@ export default function SchemicAISection() {
                   </motion.text>
                 </svg>
 
-                {/* Vertical Scanning Laser tied to scroll */}
-                <motion.div 
-                   className="absolute left-[30px] right-[30px] h-0.5 bg-white shadow-[0_0_20px_4px_#00F0FF] z-20"
-                   style={{ top: scannerY, filter: "drop-shadow(0 0 10px #00F0FF)" }} 
-                />
+                  {/* Vertical Scanning Laser tied to scroll */}
+                  <motion.div 
+                     className="absolute left-[15px] right-[15px] h-0.5 bg-white shadow-[0_0_20px_4px_#00F0FF] z-20"
+                     style={{ top: scannerY, filter: "drop-shadow(0 0-10px #00F0FF)" }} 
+                  />
               </div>
 
               {/* Status Badges Overlay */}
@@ -173,20 +174,20 @@ export default function SchemicAISection() {
            </div>
 
            {/* Right Pane: Diagnostic Output Log */}
-           <div className="flex-1 w-full bg-[#03060C] pt-12 relative flex flex-col">
-              <div className="px-6 py-6 flex flex-col gap-3 overflow-y-auto font-mono text-[10px] md:text-sm h-[calc(100%-80px)]">
+            <div className="flex-1 w-full bg-[#03060C] pt-12 relative flex flex-col">
+               <div className="px-4 py-4 md:px-6 md:py-6 flex flex-col gap-2 md:gap-3 overflow-y-auto font-mono text-[10px] md:text-sm h-[calc(100%-80px)]">
                  {logs.map((log, i) => (
                     <motion.div 
                        key={i}
                        initial={{ opacity: 0, x: 20 }}
                        animate={{ opacity: activeLog > i ? 1 : 0, x: activeLog > i ? 0 : 20 }}
                        transition={{ duration: 0.3 }}
-                       className={`flex flex-col md:flex-row gap-2 md:gap-4 px-4 py-3 rounded-lg border 
-                         ${log.level === 'error' ? 'bg-red-500/10 text-red-400 border-red-500/20 shadow-[0_0_15px_rgba(248,113,113,0.1)]' : 
-                           log.level === 'warn' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' : 
-                           log.level === 'success' ? 'bg-green-500/10 text-green-400 border-green-500/20 shadow-[0_0_15px_rgba(74,222,128,0.1)]' : 
-                           'text-white/70 hover:bg-white/5 border-transparent'}`
-                       }
+                        className={`flex flex-col md:flex-row gap-2 md:gap-4 px-3 py-2 md:px-4 md:py-3 rounded-lg border 
+                          ${log.level === 'error' ? 'bg-red-500/10 text-red-400 border-red-500/20 shadow-[0_0_15px_rgba(248,113,113,0.1)]' : 
+                            log.level === 'warn' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' : 
+                            log.level === 'success' ? 'bg-green-500/10 text-green-400 border-green-500/20 shadow-[0_0_15px_rgba(74,222,128,0.1)]' : 
+                            'text-white/70 hover:bg-white/5 border-transparent'}`
+                        }
                     >
                        <span className="opacity-40 shrink-0">[{log.time}]</span>
                        <div className="flex gap-2 w-full">
@@ -236,11 +237,11 @@ export default function SchemicAISection() {
           className="w-full mt-12 md:mt-16 mb-0 relative h-[380px] hidden lg:flex justify-center items-center perspective-1000"
         >
            {[
-             { title: "AI-Powered Fault Diagnosis", desc: "Identify device issues instantly using AI-driven analysis of symptoms, behavior, and historical repair data.", icon: Search, color: "from-[#2F80ED]/30 to-transparent", glow: "text-[#2F80ED]", colorCode: "#2F80ED" },
-             { title: "Image-Based Component Detection", desc: "Upload motherboard or PCB images and automatically detect components, damaged areas, and key circuit zones.", icon: Camera, color: "from-[#8A2BE2]/30 to-transparent", glow: "text-[#8A2BE2]", colorCode: "#8A2BE2" },
-             { title: "Smart Repair Guidance", desc: "Get step-by-step repair instructions with recommended tools, precautions, and optimized repair workflows.", icon: Wrench, color: "from-[#4ADE80]/30 to-transparent", glow: "text-[#4ADE80]", colorCode: "#4ADE80" },
-             { title: "AI-Powered Testing", desc: "Know exactly where to test, what values to check, and which components are likely to fail.", icon: ZapIcon, color: "from-[#F2994A]/30 to-transparent", glow: "text-[#F2994A]", colorCode: "#F2994A" },
-             { title: "Knowledge Engine", desc: "Continuously learns from past repairs, technician inputs, and common faults to improve accuracy over time.", icon: Brain, color: "from-[#00F0FF]/30 to-transparent", glow: "text-[#00F0FF]", colorCode: "#00F0FF" }
+             { title: t('ai.card1.title'), desc: t('ai.card1.desc'), icon: Search, color: "from-[#2F80ED]/30 to-transparent", glow: "text-[#2F80ED]", colorCode: "#2F80ED" },
+             { title: t('ai.card2.title'), desc: t('ai.card2.desc'), icon: Camera, color: "from-[#8A2BE2]/30 to-transparent", glow: "text-[#8A2BE2]", colorCode: "#8A2BE2" },
+             { title: t('ai.card3.title'), desc: t('ai.card3.desc'), icon: Wrench, color: "from-[#4ADE80]/30 to-transparent", glow: "text-[#4ADE80]", colorCode: "#4ADE80" },
+             { title: t('ai.card4.title'), desc: t('ai.card4.desc'), icon: ZapIcon, color: "from-[#F2994A]/30 to-transparent", glow: "text-[#F2994A]", colorCode: "#F2994A" },
+             { title: t('ai.card5.title'), desc: t('ai.card5.desc'), icon: Brain, color: "from-[#00F0FF]/30 to-transparent", glow: "text-[#00F0FF]", colorCode: "#00F0FF" }
            ].map((feature, i) => {
              const Icon = feature.icon;
              
@@ -327,11 +328,11 @@ export default function SchemicAISection() {
         {/* Mobile View for Features (Vertical Stack) */}
         <div className="w-full mt-12 flex flex-col lg:hidden gap-6">
            {[
-             { title: "AI-Powered Fault Diagnosis", desc: "Identify device issues instantly using AI-driven analysis of symptoms, behavior, and historical repair data.", icon: Search, glow: "text-[#2F80ED]" },
-             { title: "Image-Based Component Detection", desc: "Upload motherboard or PCB images and automatically detect components, damaged areas, and key circuit zones.", icon: Camera, glow: "text-[#8A2BE2]" },
-             { title: "Smart Repair Guidance", desc: "Get step-by-step repair instructions with recommended tools, precautions, and optimized repair workflows.", icon: Wrench, glow: "text-[#4ADE80]" },
-             { title: "AI-Powered Testing Suggestions", desc: "Know exactly where to test, what values to check, and which components are likely to fail — reducing trial and error.", icon: ZapIcon, glow: "text-[#F2994A]" },
-             { title: "Knowledge Engine", desc: "Continuously learns from past repairs, technician inputs, and common faults to improve accuracy over time.", icon: Brain, glow: "text-[#00F0FF]" }
+             { title: t('ai.card1.title'), desc: t('ai.card1.desc'), icon: Search, glow: "text-[#2F80ED]" },
+             { title: t('ai.card2.title'), desc: t('ai.card2.desc'), icon: Camera, glow: "text-[#8A2BE2]" },
+             { title: t('ai.card3.title'), desc: t('ai.card3.desc'), icon: Wrench, glow: "text-[#4ADE80]" },
+             { title: t('ai.card4.title'), desc: t('ai.card4.desc'), icon: ZapIcon, glow: "text-[#F2994A]" },
+             { title: t('ai.card5.title'), desc: t('ai.card5.desc'), icon: Brain, glow: "text-[#00F0FF]" }
            ].map((feature, i) => {
              const Icon = feature.icon;
              return (

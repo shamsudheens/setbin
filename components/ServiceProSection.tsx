@@ -72,7 +72,7 @@ const RulesListCard = ({ title, items }: any) => (
 // --- DASHBOARD SUB-VIEWS (COMPACT) ---
 
 const OverviewView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="grid grid-cols-3 gap-4">
        {[
          { l: 'REVENUE', v: '₹4.2M', c: 'text-[var(--color-glow-cyan)]' },
@@ -100,7 +100,7 @@ const OverviewView = () => (
 );
 
 const DayBookView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
      <div className="flex gap-3">
         <div className="flex-1 p-3 rounded-xl bg-[var(--color-glow-cyan)]/5 border border-[var(--color-glow-cyan)]/10">
            <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Cash In</div>
@@ -127,7 +127,7 @@ const DayBookView = () => (
 );
 
 const JobsView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
      <table className="w-full text-left">
         <thead>
            <tr className="bg-white/[0.03] text-[8px] text-white/30 uppercase font-bold border-b border-white/5">
@@ -155,7 +155,7 @@ const JobsView = () => (
 );
 
 const AnalyticsView = () => (
-  <div className="space-y-6 h-full flex flex-col">
+  <div className="space-y-4 md:space-y-6 h-full flex flex-col">
      <div className="flex-1 min-h-[160px] relative">
         <svg className="w-full h-full" viewBox="0 0 400 150">
            <motion.path 
@@ -199,7 +199,7 @@ const AnalyticsView = () => (
 
 
 const BillingView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="grid grid-cols-3 gap-4">
        {[
          { l: 'TOTAL BILLED', v: '₹1.2M', c: 'text-[var(--color-glow-cyan)]' },
@@ -234,7 +234,7 @@ const BillingView = () => (
 );
 
 const ExpensesView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="grid grid-cols-2 gap-4">
        {[
          { l: 'MONTHLY OPEX', v: '₹12.4K', c: 'text-red-400' },
@@ -268,7 +268,7 @@ const ExpensesView = () => (
 );
 
 const DuesView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="flex gap-3">
        <div className="flex-1 p-3 rounded-xl bg-orange-500/5 border border-orange-500/10">
           <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Total Receivables</div>
@@ -301,7 +301,7 @@ const DuesView = () => (
 );
 
 const InventoryView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="grid grid-cols-2 gap-4">
        {[
          { l: 'TOTAL SKUS', v: '450', c: 'text-blue-400' },
@@ -335,7 +335,7 @@ const InventoryView = () => (
 );
 
 const StaffView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="grid grid-cols-3 gap-3">
        {[
          { l: 'TOTAL', v: '12', c: 'text-white' },
@@ -376,7 +376,7 @@ const StaffView = () => (
 );
 
 const CustomersView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="flex gap-3">
        <div className="flex-1 p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
           <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Total Customers</div>
@@ -412,7 +412,7 @@ const CustomersView = () => (
 );
 
 const VendorsView = () => (
-  <div className="space-y-6">
+  <div className="space-y-4 md:space-y-6">
     <div className="grid grid-cols-2 gap-4">
        {[
          { l: 'ACTIVE VENDORS', v: '14', c: 'text-[var(--color-glow-cyan)]' },
@@ -455,17 +455,17 @@ export default function ServiceProSection() {
   const step = 50;
 
   const tabs = [
-    { id: "overview", label: "OVERVIEW", icon: LayoutDashboard },
-    { id: "daybook", label: "DAYBOOK", icon: BookOpen },
-    { id: "jobs", label: "SERVICES", icon: Briefcase },
-    { id: "billing", label: "BILLING", icon: CreditCard },
-    { id: "expenses", label: "EXPENSES", icon: PieChart },
-    { id: "dues", label: "DUES", icon: TrendingDown },
-    { id: "inventory", label: "INVENTORY", icon: Package },
-    { id: "staff", label: "STAFF", icon: Users },
-    { id: "customers", label: "CUSTOMERS", icon: UserPlus },
-    { id: "vendors", label: "VENDORS", icon: Store },
-    { id: "reports", label: "REPORTS", icon: BarChart3 },
+    { id: "overview", label: t('pro.nav.overview'), icon: LayoutDashboard },
+    { id: "daybook", label: t('pro.nav.daybook'), icon: BookOpen },
+    { id: "services", label: t('pro.nav.services'), icon: Briefcase },
+    { id: "billing", label: t('pro.nav.billing'), icon: CreditCard },
+    { id: "expenses", label: t('pro.nav.expenses'), icon: PieChart },
+    { id: "dues", label: t('pro.nav.dues'), icon: TrendingDown },
+    { id: "inventory", label: t('pro.nav.inventory'), icon: Package },
+    { id: "staff", label: t('pro.nav.staff'), icon: Users },
+    { id: "customers", label: t('pro.nav.customers'), icon: UserPlus },
+    { id: "vendors", label: t('pro.nav.vendors'), icon: Store },
+    { id: "reports", label: t('pro.nav.reports'), icon: BarChart3 },
   ];
 
   useEffect(() => {
@@ -514,58 +514,58 @@ export default function ServiceProSection() {
 
   const cardsMap: any = {
     0: {
-      tl: { title: "DAILY REVENUE", value: "₹24,800", detail: "+15% VS LAST WEEK", icon: TrendingUp, colorClass: "text-green-400" },
-      bl: { title: "PENDING JOBS", value: "12", detail: "4 URGENT", icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
+      tl: { title: t('pro.card.revenue.title'), value: "₹24,800", detail: t('pro.card.revenue.detail'), icon: TrendingUp, colorClass: "text-green-400" },
+      bl: { title: t('pro.card.pending.title'), value: "12", detail: t('pro.card.pending.detail'), icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
       mr: { items: [ { label: 'NEW_USERS', val: '8' }, { label: 'SLA_STATUS', val: 'OK' } ], title: 'STAT_NODE_01' }
     },
     1: {
-      tl: { title: "CASH FLOW", value: "₹84,200", detail: "LAST SYNC 2S", icon: CreditCard, colorClass: "text-blue-400" },
-      bl: { title: "TRANSACTIONS", value: "42", detail: "UPI DOMINANT", icon: Zap, colorClass: "text-[var(--color-glow-cyan)]" },
+      tl: { title: t('pro.card.cash_flow.title'), value: "₹84,200", detail: t('pro.card.cash_flow.detail'), icon: CreditCard, colorClass: "text-blue-400" },
+      bl: { title: t('pro.card.transactions.title'), value: "42", detail: t('pro.card.transactions.detail'), icon: Zap, colorClass: "text-[var(--color-glow-cyan)]" },
       mr: { items: [ { label: 'BAL_HAND', val: '₹12K' }, { label: 'UPI_BAL', val: '₹72K' } ], title: 'STAT_NODE_02' }
     },
     2: {
-        tl: { title: "AVG REPAIR", value: "45M", detail: "-5M FROM TARGET", icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
-        bl: { title: "READY JOBS", value: "8", detail: "WAITING DELIVERY", icon: UserCheck, colorClass: "text-green-400" },
+        tl: { title: t('pro.card.avg_repair.title'), value: "45M", detail: t('pro.card.avg_repair.detail'), icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
+        bl: { title: t('pro.card.ready_jobs.title'), value: "8", detail: t('pro.card.ready_jobs.detail'), icon: UserCheck, colorClass: "text-green-400" },
         mr: { items: [ { label: 'PARTS_USED', val: '24' }, { label: 'TECH_LD', val: 'LOW' } ], title: 'STAT_NODE_03' }
     },
     3: {
-        tl: { title: "OUTSTANDING", value: "₹45.2K", detail: "5 CUSTOMERS", icon: TrendingDown, colorClass: "text-red-400" },
-        bl: { title: "INV_MATCH", value: "100%", detail: "GST VERIFIED", icon: ShieldCheck, colorClass: "text-blue-400" },
+        tl: { title: t('pro.card.outstanding.title'), value: "₹45.2K", detail: t('pro.card.outstanding.detail'), icon: TrendingDown, colorClass: "text-red-400" },
+        bl: { title: t('pro.card.inv_match.title'), value: "100%", detail: t('pro.card.inv_match.detail'), icon: ShieldCheck, colorClass: "text-blue-400" },
         mr: { items: [ { label: 'DUE_DAYS', val: '2' }, { label: 'LATE_FEES', val: 'OFF' } ], title: 'STAT_NODE_04' }
     },
     4: {
-        tl: { title: "EXP_TOTAL", value: "₹12.4K", detail: "MONTHLY OPEX", icon: PieChart, colorClass: "text-red-400" },
-        bl: { title: "RENT_PAID", value: "YES", detail: "DUE IN 28D", icon: Store, colorClass: "text-[var(--color-glow-cyan)]" },
+        tl: { title: t('pro.card.exp_total.title'), value: "₹12.4K", detail: t('pro.card.exp_total.detail'), icon: PieChart, colorClass: "text-red-400" },
+        bl: { title: t('pro.card.rent_paid.title'), value: "YES", detail: t('pro.card.rent_paid.detail'), icon: Store, colorClass: "text-[var(--color-glow-cyan)]" },
         mr: { items: [ { label: 'TAX_EXP', val: '₹2K' }, { label: 'STAFF_EXP', val: '₹8K' } ], title: 'STAT_NODE_05' }
     },
     5: {
-        tl: { title: "RECEIVABLES", value: "₹85.0K", detail: "4 PENDING", icon: TrendingDown, colorClass: "text-red-400" },
-        bl: { title: "PAYABLES", value: "₹12.0K", detail: "DUE IN 3D", icon: ExternalLink, colorClass: "text-blue-400" },
+        tl: { title: t('pro.card.receivables.title'), value: "₹85.0K", detail: t('pro.card.receivables.detail'), icon: TrendingDown, colorClass: "text-red-400" },
+        bl: { title: t('pro.card.payables.title'), value: "₹12.0K", detail: t('pro.card.payables.detail'), icon: ExternalLink, colorClass: "text-blue-400" },
         mr: { items: [ { label: 'DEBT_RATIO', val: '0.2' }, { label: 'SPEED', val: 'HIGH' } ], title: 'STAT_NODE_06' }
     },
     6: {
-        tl: { title: "STOCK_VAL", value: "₹12.4M", detail: "450 SKUS", icon: Package, colorClass: "text-blue-400" },
-        bl: { title: "LOW_STOCK", value: "4", detail: "ALERT_ACTIVE", icon: AlertTriangle, colorClass: "text-orange-400" },
+        tl: { title: t('pro.card.stock_val.title'), value: "₹12.4M", detail: t('pro.card.stock_val.detail'), icon: Package, colorClass: "text-blue-400" },
+        bl: { title: t('pro.card.low_stock.title'), value: "4", detail: t('pro.card.low_stock.detail'), icon: AlertTriangle, colorClass: "text-orange-400" },
         mr: { items: [ { label: 'TURNOVER', val: '4x' }, { label: 'DEADSTRK', val: '2%' } ], title: 'STAT_NODE_07' }
     },
     7: {
-        tl: { title: "EFFICIENCY", value: "94%", detail: "TEAM AVG", icon: Zap, colorClass: "text-[var(--color-glow-cyan)]" },
-        bl: { title: "ACTIVE_STAFF", value: "8", detail: "4 ON BENCH", icon: Users, colorClass: "text-blue-400" },
+        tl: { title: t('pro.card.efficiency.title'), value: "94%", detail: t('pro.card.efficiency.detail'), icon: Zap, colorClass: "text-[var(--color-glow-cyan)]" },
+        bl: { title: t('pro.card.active_staff.title'), value: "8", detail: t('pro.card.active_staff.detail'), icon: Users, colorClass: "text-blue-400" },
         mr: { items: [ { label: 'OT_HRS', val: '14' }, { label: 'RATING', val: '4.9' } ], title: 'STAT_NODE_08' }
     },
     8: {
-        tl: { title: "CUSTOMERS", value: "1.2K", detail: "RECURRING", icon: UserPlus, colorClass: "text-green-400" },
-        bl: { title: "AVG_LTV", value: "₹4.5K", detail: "UP 5%", icon: TrendingUp, colorClass: "text-blue-400" },
+        tl: { title: t('pro.card.customers.title'), value: "1.2K", detail: t('pro.card.customers.detail'), icon: UserPlus, colorClass: "text-green-400" },
+        bl: { title: t('pro.card.avg_ltv.title'), value: "₹4.5K", detail: t('pro.card.avg_ltv.detail'), icon: TrendingUp, colorClass: "text-blue-400" },
         mr: { items: [ { label: 'CLV', val: '₹12K' }, { label: 'BRND_SCR', val: '92' } ], title: 'STAT_NODE_09' }
     },
     9: {
-        tl: { title: "VENDORS", value: "14", detail: "3 ACTIVE PO", icon: Store, colorClass: "text-blue-400" },
-        bl: { title: "LEAD_TIME", value: "24H", detail: "TOP TIER", icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
+        tl: { title: t('pro.card.vendors.title'), value: "14", detail: t('pro.card.vendors.detail'), icon: Store, colorClass: "text-blue-400" },
+        bl: { title: t('pro.card.lead_time.title'), value: "24H", detail: t('pro.card.lead_time.detail'), icon: Activity, colorClass: "text-[var(--color-glow-cyan)]" },
         mr: { items: [ { label: 'PO_VAL', val: '1.2L' }, { label: 'CREDIT', val: '5L' } ], title: 'STAT_NODE_10' }
     },
     10: {
-        tl: { title: "ANALYTICS", value: "SYNC", detail: "REAL-TIME", icon: BarChart3, colorClass: "text-[var(--color-glow-cyan)]" },
-        bl: { title: "Uptime", value: "99.9%", detail: "GLOBAL_CLUSTER", icon: ShieldCheck, colorClass: "text-green-400" },
+        tl: { title: t('pro.card.analytics.title'), value: "SYNC", detail: t('pro.card.analytics.detail'), icon: BarChart3, colorClass: "text-[var(--color-glow-cyan)]" },
+        bl: { title: t('pro.card.uptime.title'), value: "99.9%", detail: t('pro.card.uptime.detail'), icon: ShieldCheck, colorClass: "text-green-400" },
         mr: { items: [ { label: 'X_SCALE', val: '4.2x' }, { label: 'SYNC_L', val: '2MS' } ], title: 'STAT_NODE_11' }
     }
   };
@@ -588,7 +588,7 @@ export default function ServiceProSection() {
   const activeColor = tabColors[activeIdx] || "var(--color-glow-cyan)";
 
   return (
-    <section id="setbin-repair" className="py-12 md:py-20 bg-transparent relative overflow-hidden scroll-mt-20 px-6">
+    <section id="setbin-repair" className="py-8 md:py-20 bg-transparent relative overflow-hidden scroll-mt-20 px-6">
       
       {/* BACKGROUND */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
@@ -597,7 +597,7 @@ export default function ServiceProSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* COMPACT HEADER */}
-        <div className="text-center w-full max-w-4xl mx-auto mb-16 space-y-6">
+        <div className="text-center w-full max-w-4xl mx-auto mb-8 md:mb-16 space-y-6">
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
@@ -607,22 +607,20 @@ export default function ServiceProSection() {
              <Briefcase size={14} className="animate-pulse" />
              {t('pro.showcase.subheading')}
            </motion.div>
-           
            <motion.h2 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
              transition={{ delay: 0.1 }}
              className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight text-white/90 leading-[1.1]"
-           >
-             One System for Your <br/> Entire Service Business
-           </motion.h2>
+             dangerouslySetInnerHTML={{ __html: t('pro.dashboard.title') }}
+           />
         </div>
 
         {/* CONNECTED STEPPER (COMPACT) */}
-        <div className="relative max-w-5xl mx-auto mb-16 px-2 overflow-x-auto no-scrollbar pb-8">
+        <div className="relative max-w-5xl mx-auto mb-8 md:mb-16 px-2 overflow-x-auto no-scrollbar pb-8">
            <div className="absolute top-[1.25rem] left-8 right-8 h-[1px] bg-white/5 hidden md:block" />
-           <div className="relative flex justify-between items-center min-w-[900px] lg:min-w-0 px-4">
+           <div className="relative flex justify-between items-center min-w-[700px] lg:min-w-0 px-4">
              {tabs.map((tab, idx) => {
                const Icon = tab.icon;
                const isActive = activeIdx === idx;
@@ -633,7 +631,7 @@ export default function ServiceProSection() {
                     <button 
                       onClick={() => handleTabManual(idx)}
                       className={`
-                        w-10 h-10 rounded-[1rem] flex items-center justify-center transition-all duration-500 border
+                        w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-[1rem] flex items-center justify-center transition-all duration-500 border
                         ${isActive 
                            ? "bg-[#030816] text-white shadow-[0_0_20px_rgba(47,128,237,0.4)]" 
                            : isPassed 
@@ -647,7 +645,7 @@ export default function ServiceProSection() {
                           boxShadow: isActive ? `0 0 20px ${activeColor}40` : undefined,
                       }}
                     >
-                      <Icon size={16} />
+                      <Icon size={14} className="md:w-4 md:h-4" />
                     </button>
                     <span 
                       className={`mt-3 text-[7px] font-bold tracking-[0.1em] uppercase transition-colors leading-tight`}
@@ -677,10 +675,11 @@ export default function ServiceProSection() {
         </div>
 
         {/* COMPACT SHOWCASE HUB */}
-        <div className="relative max-w-4xl mx-auto min-h-[500px]" style={{ perspective: "1500px" }}>
+        <div className="relative max-w-4xl mx-auto min-h-[400px] md:min-h-[500px]" style={{ perspective: "1500px" }}>
            
-           {/* BACKDROP FOR REALISM (Chargebee style Stage) */}
-           <div className="absolute inset-x-0 -inset-y-12 lg:-inset-x-16 bg-gradient-to-b from-[#030816]/40 to-[#030816]/90 border border-white/5 rounded-[3rem] overflow-hidden -z-20 shadow-2xl backdrop-blur-sm">
+
+           {/* BACKDROP FOR REALISM (Chargebee style Stage) - HIDDEN ON MOBILE FOR CLEAN LOOK */}
+           <div className="absolute inset-x-0 -inset-y-8 md:-inset-y-12 lg:-inset-x-16 bg-gradient-to-b from-[#030816]/40 to-[#030816]/90 border border-white/5 rounded-[3rem] overflow-hidden -z-20 shadow-2xl backdrop-blur-sm hidden lg:block">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-60" />
               
               {/* Dynamic Bottom Glow */}
@@ -705,25 +704,28 @@ export default function ServiceProSection() {
              style={{ transformStyle: "preserve-3d" }}
              className="w-full relative"
            >
-             {/* FLOATING CARDS (SMALLER/REPOSITIONED) */}
-             <div className="absolute -left-16 lg:-left-32 top-10 z-30 hidden lg:block scale-90" style={{ transform: "translateZ(80px)" }}>
+             {/* Floating Cards (Top Left) */}
+             <div className="absolute -left-2 md:-left-16 lg:-left-32 top-6 md:top-10 z-30 scale-[0.55] md:scale-90 origin-left" style={{ transform: "translateZ(50px)" }}>
                 <AnimatePresence mode="wait">
-                   <FeatureCard key={activeIdx} {...currentCards.tl} />
+                   <FeatureCard key={`tl-${activeIdx}`} {...currentCards.tl} />
                 </AnimatePresence>
              </div>
-             <div className="absolute -left-16 lg:-left-24 bottom-10 z-30 hidden lg:block scale-90" style={{ transform: "translateZ(100px)" }}>
+
+             {/* Floating Cards (Bottom Left) */}
+             <div className="absolute -left-1 md:-left-12 lg:-left-24 -bottom-6 md:-bottom-10 z-30 scale-[0.55] md:scale-90 origin-left" style={{ transform: "translateZ(70px)" }}>
                 <AnimatePresence mode="wait">
-                   <FeatureCard key={activeIdx} {...currentCards.bl} />
+                   <FeatureCard key={`bl-${activeIdx}`} {...currentCards.bl} />
                 </AnimatePresence>
              </div>
-             <div className="absolute -right-16 lg:-right-32 top-1/2 -translate-y-1/2 z-30 hidden lg:block scale-90" style={{ transform: "translateZ(90px)" }}>
+             {/* Floating Cards (Right Side) */}
+             <div className="absolute -right-2 md:-right-16 lg:-right-32 top-1/2 -translate-y-1/2 z-30 scale-[0.55] md:scale-90 origin-right" style={{ transform: "translateZ(60px)" }}>
                 <AnimatePresence mode="wait">
-                   <RulesListCard key={activeIdx} {...currentCards.mr} />
+                   <RulesListCard key={`mr-${activeIdx}`} {...currentCards.mr} />
                 </AnimatePresence>
              </div>
 
              {/* MAIN DASHBOARD (FIXED COMPACT HEIGHT) */}
-             <div className="relative rounded-[2.5rem] border border-white/10 bg-[#030816]/95 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden h-[420px] lg:h-[480px] flex flex-col" style={{ transform: "translateZ(0px)" }}>
+             <div className="relative rounded-[2.5rem] border border-white/10 bg-[#030816]/95 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden h-[340px] lg:h-[480px] flex flex-col" style={{ transform: "translateZ(0px)" }}>
                 {/* Window Header */}
                 <div className="px-6 py-4 flex items-center justify-between border-b border-white/5 bg-white/[0.01]">
                    <div className="flex gap-2">
@@ -737,7 +739,7 @@ export default function ServiceProSection() {
                    </div>
                 </div>
 
-                <div className="flex-1 p-8 lg:p-12 overflow-hidden relative">
+                <div className="flex-1 p-4 md:p-8 lg:p-12 overflow-hidden relative">
                    <AnimatePresence mode="wait">
                      <motion.div
                        key={activeIdx}
@@ -770,10 +772,11 @@ export default function ServiceProSection() {
            </motion.div>
         </div>
 
+
         {/* COMPACT CTA */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 md:mt-16 text-center">
             <button className="px-12 py-5 bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] text-white rounded-[1.5rem] font-bold shadow-[0_20px_50px_rgba(47,128,237,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto group text-sm">
-               Start Your Automation
+               {t('pro.btn.cta')}
                <ArrowRight className="group-hover:translate-x-1 transition-transform w-4 h-4" />
             </button>
         </div>

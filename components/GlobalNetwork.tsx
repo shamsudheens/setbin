@@ -5,15 +5,15 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function GlobalNetwork() {
   const { t } = useLanguage();
-  const nodes = [
-    { name: "Delhi", top: "28%", left: "41%", color: "var(--color-glow-blue)" },
-    { name: "Mumbai", top: "56%", left: "32%", color: "var(--color-glow-cyan)" },
-    { name: "Bangalore", top: "74%", left: "42%", color: "var(--color-glow-purple)" },
-    { name: "Hyderabad", top: "67%", left: "44%", color: "var(--color-glow-blue)" },
-    { name: "Chennai", top: "78%", left: "47%", color: "var(--color-glow-cyan)" },
-    { name: "Kolkata", top: "50%", left: "61%", color: "var(--color-glow-purple)" },
-    { name: "Ahmedabad", top: "50%", left: "31%", color: "var(--color-glow-blue)" },
-    { name: "Kochi", top: "84%", left: "39%", color: "var(--color-glow-cyan)" },
+  const nodes = (t: any) => [
+    { name: t('network.city.delhi'), top: "28%", left: "41%", color: "var(--color-glow-blue)" },
+    { name: t('network.city.mumbai'), top: "56%", left: "32%", color: "var(--color-glow-cyan)" },
+    { name: t('network.city.bangalore'), top: "74%", left: "42%", color: "var(--color-glow-purple)" },
+    { name: t('network.city.hyderabad'), top: "67%", left: "44%", color: "var(--color-glow-blue)" },
+    { name: t('network.city.chennai'), top: "78%", left: "47%", color: "var(--color-glow-cyan)" },
+    { name: t('network.city.kolkata'), top: "50%", left: "61%", color: "var(--color-glow-purple)" },
+    { name: t('network.city.ahmedabad'), top: "50%", left: "31%", color: "var(--color-glow-blue)" },
+    { name: t('network.city.kochi'), top: "84%", left: "39%", color: "var(--color-glow-cyan)" },
   ];
 
   return (
@@ -59,7 +59,7 @@ export default function GlobalNetwork() {
           </div>
 
           {/* Animated Glow Nodes */}
-          {nodes.map((node, i) => (
+          {nodes(t).map((node, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0 }}

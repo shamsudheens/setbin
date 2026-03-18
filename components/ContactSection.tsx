@@ -4,30 +4,30 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, ArrowRight, MessageSquare, Zap, Navigation } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-const contactCards = [
+const contactCards = (t: any) => [
   {
     icon: MapPin,
-    title: "Office Location",
-    value: "SETTINGS Service Center Ernakulam",
-    sub: "Kochi, Kerala — India",
+    title: t('contact.card.office.title'),
+    value: t('contact.card.office.value'),
+    sub: t('contact.card.office.sub'),
     color: "text-[var(--color-glow-cyan)]",
     glow: "rgba(0,240,255,0.15)",
     border: "rgba(0,240,255,0.2)",
   },
   {
     icon: Phone,
-    title: "Direct Contact",
+    title: t('contact.card.direct.title'),
     value: "+91 (XXX) XXX-XXXX",
-    sub: "Mon–Sat · 10AM – 7PM IST",
+    sub: t('contact.card.direct.sub'),
     color: "text-[var(--color-glow-blue)]",
     glow: "rgba(47,128,237,0.15)",
     border: "rgba(47,128,237,0.2)",
   },
   {
     icon: Mail,
-    title: "Enterprise Email",
+    title: t('contact.card.email.title'),
     value: "official@setbin.com",
-    sub: "Response within 24 hours",
+    sub: t('contact.card.email.sub'),
     color: "text-purple-400",
     glow: "rgba(157,78,221,0.15)",
     border: "rgba(157,78,221,0.2)",
@@ -36,6 +36,7 @@ const contactCards = [
 
 export default function ContactSection() {
   const { t } = useLanguage();
+  const cards = contactCards(t);
 
   return (
     <section className="py-24 md:py-32 relative overflow-hidden bg-transparent" id="contact">
@@ -83,7 +84,7 @@ export default function ContactSection() {
 
           {/* Left: Contact info cards */}
           <div className="lg:col-span-5 flex flex-col gap-5">
-            {contactCards.map((card, i) => {
+            {cards.map((card: any, i: number) => {
               const Icon = card.icon;
               return (
                 <motion.div
@@ -143,7 +144,7 @@ export default function ContactSection() {
                 href="mailto:official@setbin.com"
                 className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] text-white rounded-[1.2rem] font-bold text-sm shadow-[0_10px_40px_rgba(47,128,237,0.3)] active:scale-95 transition-all"
               >
-                <Zap size={15} /> Send a Message
+                <Zap size={15} /> {t('contact.send_message')}
               </a>
             </motion.div>
           </div>
@@ -165,7 +166,7 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
                 <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-glow-cyan)] animate-pulse" />
-                <span className="text-[9px] font-mono text-white/40 tracking-[0.2em] uppercase">SETBIN // ERNAKULAM</span>
+                <span className="text-[9px] font-mono text-white/40 tracking-[0.2em] uppercase">{t('contact.map.label')}</span>
               </div>
             </div>
 
@@ -202,7 +203,7 @@ export default function ContactSection() {
               className="absolute bottom-5 right-5 z-30 flex items-center gap-2 px-4 py-2.5 bg-[#030816]/90 border border-white/20 rounded-[0.9rem] text-white text-xs font-bold backdrop-blur-xl hover:bg-white/10 hover:border-[var(--color-glow-cyan)]/50 hover:text-[var(--color-glow-cyan)] transition-all shadow-[0_8px_24px_rgba(0,0,0,0.5)] group"
             >
               <Navigation size={13} className="group-hover:text-[var(--color-glow-cyan)] transition-colors" />
-              Get Directions
+              {t('contact.get_directions')}
             </a>
           </motion.div>
 
