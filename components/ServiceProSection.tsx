@@ -197,6 +197,254 @@ const AnalyticsView = () => (
   </div>
 );
 
+
+const BillingView = () => (
+  <div className="space-y-6">
+    <div className="grid grid-cols-3 gap-4">
+       {[
+         { l: 'TOTAL BILLED', v: '₹1.2M', c: 'text-[var(--color-glow-cyan)]' },
+         { l: 'INVOICES', v: '142', c: 'text-white' },
+         { l: 'PENDING', v: '₹45K', c: 'text-orange-400' }
+       ].map((it, i) => (
+         <div key={i} className="p-3 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="text-[8px] font-bold text-white/20 uppercase mb-1">{it.l}</div>
+            <div className={`text-base font-bold ${it.c}`}>{it.v}</div>
+         </div>
+       ))}
+    </div>
+    <div className="bg-white/[0.01] rounded-xl border border-white/5">
+        {[
+          { id: "INV-2024-001", client: "TechCorp Ltd.", amt: "₹12,400", stat: "PAID", col: "text-green-400" },
+          { id: "INV-2024-002", client: "Rahul Sharma", amt: "₹4,500", stat: "PENDING", col: "text-orange-400" },
+          { id: "INV-2024-003", client: "Priya Singh", amt: "₹8,900", stat: "PAID", col: "text-green-400" }
+        ].map((inv, i) => (
+          <div key={i} className="px-5 py-3 flex justify-between border-b border-white/5 last:border-0">
+             <div>
+               <div className="text-[10px] font-mono text-white/40">{inv.id}</div>
+               <div className="text-xs text-white/80 font-bold">{inv.client}</div>
+             </div>
+             <div className="text-right">
+               <div className="text-xs font-bold text-white">{inv.amt}</div>
+               <div className={`text-[8px] font-bold ${inv.col}`}>{inv.stat}</div>
+             </div>
+          </div>
+        ))}
+    </div>
+  </div>
+);
+
+const ExpensesView = () => (
+  <div className="space-y-6">
+    <div className="grid grid-cols-2 gap-4">
+       {[
+         { l: 'MONTHLY OPEX', v: '₹12.4K', c: 'text-red-400' },
+         { l: 'YEAR TO DATE', v: '₹145K', c: 'text-orange-400' }
+       ].map((it, i) => (
+         <div key={i} className="p-3 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="text-[8px] font-bold text-white/20 uppercase mb-1">{it.l}</div>
+            <div className={`text-base font-bold ${it.c}`}>{it.v}</div>
+         </div>
+       ))}
+    </div>
+    <div className="space-y-2">
+       {[
+         { cat: "Parts Purchase", date: "Today, 10:30 AM", amt: "₹4,200" },
+         { cat: "Office Rent", date: "Yesterday", amt: "₹15,000" },
+         { cat: "Electricity Bill", date: "Oct 12", amt: "₹3,400" }
+       ].map((exp, i) => (
+         <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="flex items-center gap-3">
+               <div className="w-8 h-8 rounded-full bg-red-400/10 flex items-center justify-center text-red-400"><TrendingDown size={14}/></div>
+               <div>
+                 <div className="text-xs text-white/80 font-bold">{exp.cat}</div>
+                 <div className="text-[9px] text-white/40">{exp.date}</div>
+               </div>
+            </div>
+            <div className="text-sm font-bold text-red-400">-{exp.amt}</div>
+         </div>
+       ))}
+    </div>
+  </div>
+);
+
+const DuesView = () => (
+  <div className="space-y-6">
+    <div className="flex gap-3">
+       <div className="flex-1 p-3 rounded-xl bg-orange-500/5 border border-orange-500/10">
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Total Receivables</div>
+          <div className="text-xl font-bold text-orange-400">₹85.0K</div>
+       </div>
+    </div>
+    <table className="w-full text-left bg-white/[0.01] rounded-xl border border-white/5 overflow-hidden block">
+       <thead className="w-full table table-fixed">
+          <tr className="text-[8px] text-white/30 uppercase font-bold border-b border-white/5">
+             <th className="px-5 py-3">CUSTOMER</th>
+             <th className="px-5 py-3">DUE DATE</th>
+             <th className="px-5 py-3">AMOUNT</th>
+          </tr>
+       </thead>
+       <tbody className="divide-y divide-white/5 text-[10px] w-full table table-fixed">
+          {[
+            { name: "Global Traders", date: "Overdue 5 days", amt: "₹24,500", col: "text-red-400" },
+            { name: "Anita Desai", date: "Tomorrow", amt: "₹3,200", col: "text-orange-400" },
+            { name: "Metro Mobiles", date: "In 3 days", amt: "₹18,000", col: "text-white/60" }
+          ].map((d, i) => (
+            <tr key={i} className="hover:bg-white/[0.02]">
+               <td className="px-5 py-3 text-white/80 font-bold">{d.name}</td>
+               <td className={`px-5 py-3 font-mono ${d.col}`}>{d.date}</td>
+               <td className="px-5 py-3 font-bold text-white">{d.amt}</td>
+            </tr>
+          ))}
+       </tbody>
+    </table>
+  </div>
+);
+
+const InventoryView = () => (
+  <div className="space-y-6">
+    <div className="grid grid-cols-2 gap-4">
+       {[
+         { l: 'TOTAL SKUS', v: '450', c: 'text-blue-400' },
+         { l: 'LOW STOCK', v: '12 Items', c: 'text-orange-400' }
+       ].map((it, i) => (
+         <div key={i} className="p-3 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="text-[8px] font-bold text-white/20 uppercase mb-1">{it.l}</div>
+            <div className={`text-base font-bold ${it.c}`}>{it.v}</div>
+         </div>
+       ))}
+    </div>
+    <div className="space-y-2">
+       {[
+         { item: "iPhone 13 Display OLED", stock: "4 left", status: "LOW", col: "text-orange-400" },
+         { item: "Samsung S22 Battery", stock: "24 in stock", status: "OK", col: "text-green-400" },
+         { item: "Type-C Charging Port", stock: "0 left", status: "OUT", col: "text-red-400" }
+       ].map((inv, i) => (
+         <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="flex items-center gap-3">
+               <div className="w-6 h-6 rounded-lg bg-[var(--color-glow-blue)]/10 flex items-center justify-center text-[var(--color-glow-cyan)]"><Package size={12}/></div>
+               <div className="text-xs text-white/80 font-bold">{inv.item}</div>
+            </div>
+            <div className="text-right">
+               <div className="text-xs font-bold text-white">{inv.stock}</div>
+               <div className={`text-[8px] font-bold ${inv.col}`}>{inv.status}</div>
+            </div>
+         </div>
+       ))}
+    </div>
+  </div>
+);
+
+const StaffView = () => (
+  <div className="space-y-6">
+    <div className="grid grid-cols-3 gap-3">
+       {[
+         { l: 'TOTAL', v: '12', c: 'text-white' },
+         { l: 'ACTIVE', v: '8', c: 'text-green-400' },
+         { l: 'ON LEAVE', v: '1', c: 'text-orange-400' }
+       ].map((it, i) => (
+         <div key={i} className="p-2 rounded-lg bg-white/[0.01] border border-white/5 text-center">
+            <div className="text-[8px] font-bold text-white/20 uppercase mb-1">{it.l}</div>
+            <div className={`text-lg font-bold ${it.c}`}>{it.v}</div>
+         </div>
+       ))}
+    </div>
+    <div className="bg-white/[0.01] rounded-xl border border-white/5">
+       {[
+         { name: "Arun Kumar", role: "Senior Technician", jobs: "4 assigned", status: "Active", dot: "bg-green-400" },
+         { name: "Meera Reddy", role: "Front Desk", jobs: "Shift: Morning", status: "Active", dot: "bg-green-400" },
+         { name: "Karthik Nair", role: "Junior Tech", jobs: "0 assigned", status: "On Leave", dot: "bg-orange-400" }
+       ].map((staff, i) => (
+         <div key={i} className="px-5 py-3 flex items-center justify-between border-b border-white/5 last:border-0">
+            <div className="flex items-center gap-3">
+               <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/40"><Users size={14}/></div>
+               <div>
+                  <div className="text-xs text-white/90 font-bold">{staff.name}</div>
+                  <div className="text-[9px] text-white/40">{staff.role}</div>
+               </div>
+            </div>
+            <div className="text-right flex flex-col items-end">
+               <div className="text-[10px] text-white/60 mb-1">{staff.jobs}</div>
+               <div className="flex items-center gap-1.5">
+                  <div className={`w-1.5 h-1.5 rounded-full ${staff.dot}`} />
+                  <div className="text-[8px] text-white/30 uppercase">{staff.status}</div>
+               </div>
+            </div>
+         </div>
+       ))}
+    </div>
+  </div>
+);
+
+const CustomersView = () => (
+  <div className="space-y-6">
+    <div className="flex gap-3">
+       <div className="flex-1 p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">Total Customers</div>
+          <div className="text-xl font-bold text-blue-400">1,248</div>
+       </div>
+       <div className="flex-1 p-3 rounded-xl bg-green-500/5 border border-green-500/10">
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">New This Month</div>
+          <div className="text-xl font-bold text-green-400">+42</div>
+       </div>
+    </div>
+    <div className="space-y-2">
+       {[
+         { name: "Vikram Singh", phone: "+91 98765 43210", visits: "4 visits", ltv: "₹18K" },
+         { name: "Sarah Thomas", phone: "+91 99887 76655", visits: "1 visit", ltv: "₹3.2K" },
+         { name: "Rajesh Gupta", phone: "+91 88776 65544", visits: "12 visits", ltv: "₹45K" }
+       ].map((c, i) => (
+         <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] transition-colors">
+            <div className="flex items-center gap-3">
+               <div className="w-8 h-8 rounded-full bg-[var(--color-glow-cyan)]/10 flex items-center justify-center text-[var(--color-glow-cyan)] font-bold text-xs">{c.name.charAt(0)}</div>
+               <div>
+                  <div className="text-xs text-white/90 font-bold">{c.name}</div>
+                  <div className="text-[9px] font-mono text-white/40">{c.phone}</div>
+               </div>
+            </div>
+            <div className="text-right">
+               <div className="text-[10px] text-white/50">{c.visits}</div>
+               <div className="text-xs font-bold text-white">{c.ltv}</div>
+            </div>
+         </div>
+       ))}
+    </div>
+  </div>
+);
+
+const VendorsView = () => (
+  <div className="space-y-6">
+    <div className="grid grid-cols-2 gap-4">
+       {[
+         { l: 'ACTIVE VENDORS', v: '14', c: 'text-[var(--color-glow-cyan)]' },
+         { l: 'OPEN POs', v: '3', c: 'text-orange-400' }
+       ].map((it, i) => (
+         <div key={i} className="p-3 rounded-lg bg-white/[0.01] border border-white/5">
+            <div className="text-[8px] font-bold text-white/20 uppercase mb-1">{it.l}</div>
+            <div className={`text-base font-bold ${it.c}`}>{it.v}</div>
+         </div>
+       ))}
+    </div>
+    <div className="bg-white/[0.01] rounded-xl border border-white/5">
+       {[
+         { name: "TechParts India", type: "OEM Components", status: "Delivery Today", col: "text-green-400" },
+         { name: "Mobile Accessories Co", type: "Cases & Covers", status: "Order Placed", col: "text-blue-400" },
+         { name: "City Distributors", type: "Tools & Equip", status: "Pending Payment", col: "text-orange-400" }
+       ].map((v, i) => (
+         <div key={i} className="px-5 py-3 flex justify-between items-center border-b border-white/5 last:border-0">
+            <div className="flex items-center gap-3">
+               <div className="p-1.5 rounded bg-white/5"><Store size={14} className="text-white/60"/></div>
+               <div>
+                 <div className="text-xs text-white/90 font-bold">{v.name}</div>
+                 <div className="text-[9px] text-white/40">{v.type}</div>
+               </div>
+            </div>
+            <div className={`text-[8px] font-bold uppercase ${v.col}`}>{v.status}</div>
+         </div>
+       ))}
+    </div>
+  </div>
+);
+
 // --- MAIN COMPONENT ---
 
 export default function ServiceProSection() {
@@ -254,13 +502,13 @@ export default function ServiceProSection() {
     0: <OverviewView />,
     1: <DayBookView />,
     2: <JobsView />,
-    3: <OverviewView />, // Billing Placeholder
-    4: <OverviewView />, // Expenses
-    5: <DayBookView />, // Dues
-    6: <JobsView />, // Inventory
-    7: <OverviewView />, // Staff
-    8: <OverviewView />, // Customers
-    9: <DayBookView />, // Vendors
+    3: <BillingView />,
+    4: <ExpensesView />,
+    5: <DuesView />,
+    6: <InventoryView />,
+    7: <StaffView />,
+    8: <CustomersView />,
+    9: <VendorsView />,
     10: <AnalyticsView />
   };
 
