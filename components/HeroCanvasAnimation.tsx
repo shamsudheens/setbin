@@ -152,11 +152,11 @@ export default function HeroCanvasAnimation() {
                filter: useTransform(smoothProgress, [0, 0.05, 0.10, 0.14], ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"])
              }}
            >
-             {/* Unified Badge Style */}
+             {/* Unified Badge Style
              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--color-glow-blue)]/30 bg-[var(--color-glow-blue)]/10 backdrop-blur-md shadow-[0_0_20px_rgba(47,128,237,0.2)]">
                <span className="w-2 h-2 rounded-full bg-[var(--color-glow-cyan)] shadow-[0_0_10px_var(--color-glow-cyan)] animate-pulse" />
                <span className="text-[12px] text-white/90 tracking-[0.25em] uppercase font-bold">The Digital Backbone</span>
-             </div>
+             </div> */}
 
              {/* Pure Logo Text: Scaled up for higher brand impact */}
              <div className="relative h-24 md:h-36 lg:h-48 w-full max-w-5xl flex justify-center items-center select-none">

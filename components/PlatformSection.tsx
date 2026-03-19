@@ -8,6 +8,9 @@ export default function PlatformSection() {
   const { t } = useLanguage();
   return (
     <section id="about" className="relative py-40 overflow-hidden bg-transparent">
+      {/* Global Standard Glass Grid Background - Harmonized (64px) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+
       {/* Subtle Ambient Glows */}
       <div className="absolute inset-0 pointer-events-none z-[-1]">
         <div className="absolute top-[20%] left-[30%] w-[400px] h-[400px] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.05] bg-[var(--color-glow-blue)]" />

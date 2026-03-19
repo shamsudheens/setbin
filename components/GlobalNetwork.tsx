@@ -19,8 +19,8 @@ export default function GlobalNetwork() {
   return (
     <section className="py-40 relative overflow-hidden bg-transparent">
       
-      {/* Gentle Glass dotted background */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 2px, transparent 2px)", backgroundSize: "48px 48px" }}></div>
+      {/* Global Standard Glass Grid Background - Harmonized (64px) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
       
       {/* Background Glows */}
       <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-[var(--color-glow-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-20 pointer-events-none" />
