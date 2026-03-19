@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, ReactNode, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, MotionValue, animate } from "framer-motion";
 import { ShieldCheck, Package, Activity, ShieldAlert, Network, TrendingDown } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -85,9 +85,10 @@ interface StoryCardProps {
   index: number;
   total: number;
   accentColor: string;
+  scrollRef: React.RefObject<HTMLDivElement | null>;
 }
 
-function StoryCard({ children, index, total, accentColor }: StoryCardProps) {
+function StoryCard({ children, index, total, accentColor, scrollRef }: StoryCardProps) {
   const anchorRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -98,28 +99,27 @@ function StoryCard({ children, index, total, accentColor }: StoryCardProps) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
   
-  // Calculate relative top spacing for each stacked card
-  // Navbar is ~80px. We start at 100px. Each card adds 16px to create the physical stack step effect.
-  const stickTopNum = 100 + index * 16; 
+  // Create stack step effect horizontally
+  const stickLeftNum = isMobile ? (10 + index * 10) : (40 + index * 16); 
   
-  // Scroll tracking using an invisible anchor instead of the sticky card avoids infinite layout feedback loops causing scroll lag!
-  // We ONLY want this card to shrink/dim when the NEXT card is sliding up to cover it.
-  // The next card arrives from 100vh -> 15vh when this anchor moves from -50vh -> -140vh.
-  const { scrollYProgress: shrinkRaw } = useScroll({
+  // We use useScroll on the horizontal container.
+  const { scrollXProgress: shrinkRaw } = useScroll({
+    container: scrollRef,
     target: anchorRef,
-    offset: ["start -50vh", "start -140vh"] 
+    axis: "x",
+    offset: ["start start", "start -100vw"] 
   });
   
-  // Spring engine for buttery smooth scroll
   const shrinkProgress = useSpring(shrinkRaw, { stiffness: 60, damping: 20 });
   
-  const { scrollYProgress: entryRaw } = useScroll({
+  const { scrollXProgress: entryRaw } = useScroll({
+    container: scrollRef,
     target: anchorRef,
-    offset: ["start 95%", `start ${stickTopNum}px`]
+    axis: "x",
+    offset: ["start end", `start ${stickLeftNum}px`]
   });
   const entryProgress = useSpring(entryRaw, { stiffness: 60, damping: 20 });
 
-  // Shrink, dim, and blur the card backward as it gets pushed into the background stack.
   const scale = useTransform(shrinkProgress, [0, 1], [1, 0.92]);
   const opacity = useTransform(shrinkProgress, [0, 1], [1, 0.4]);
   const cardBlur = useTransform(shrinkProgress, [0, 1], ["blur(0px)", "blur(8px)"]);
@@ -128,15 +128,14 @@ function StoryCard({ children, index, total, accentColor }: StoryCardProps) {
 
   return (
     <>
-      <div ref={anchorRef} className="w-full h-px -mt-px opacity-0 pointer-events-none" aria-hidden="true" />
+      <div ref={anchorRef} className="w-px h-full opacity-0 pointer-events-none shrink-0" aria-hidden="true" />
       <div
-        className={`w-full flex justify-center sticky`}
+        className={`shrink-0 flex items-center justify-center sticky origin-left`}
         style={{
-          top: `${stickTopNum}px`,
-          // Mobile cards are slightly shorter to fit content better
-          height: isMobile ? '80vh' : '85vh', 
-          // Generous margin gives the user a long "pause" to read the card before the next card covers it
-          marginBottom: isLast ? '0' : '70vh', 
+          left: `${stickLeftNum}px`,
+          width: isMobile ? `85vw` : `min(85vw, 1280px)`,
+          height: '100%',
+          marginRight: isLast ? '5vw' : (isMobile ? '5vw' : 'max(5vw, 80px)'), 
           zIndex: index + 10,
         }}
       >
@@ -145,25 +144,23 @@ function StoryCard({ children, index, total, accentColor }: StoryCardProps) {
           scale, 
           opacity,
           filter: cardBlur,
-          boxShadow: `0 -20px 40px -10px rgba(0,0,0,0.8), 0 -10px 30px -10px ${accentColor}33`
+          transformOrigin: "left center",
+          boxShadow: `-20px 0 40px -10px rgba(0,0,0,0.8), -10px 0 30px -10px ${accentColor}33`
         }}
-        className="w-full max-w-6xl h-full relative p-8 md:p-12 lg:p-16 rounded-[2rem] md:rounded-[3rem] origin-top group bg-[#060B14] border border-white/10"
+        className="w-full h-[85vh] md:h-[90vh] relative p-8 md:p-12 lg:p-16 flex flex-col justify-center rounded-[2rem] md:rounded-[3rem] group bg-[#060B14] border border-white/10"
       >
-        {/* Cinematic Ambient Glow (Optimized for Safari GPU) */}
         <div 
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[300px] pointer-events-none opacity-[0.15]"
           style={{ background: `radial-gradient(ellipse at top, ${accentColor} 0%, transparent 70%)` }}
         />
 
-        {/* --- UNIVERSAL PREMIUM BORDER (Hardware Optimised) --- */}
         <div className="absolute inset-0 rounded-[2rem] md:rounded-[3rem] overflow-hidden pointer-events-none z-10">
-           {/* Apple-style precise glass reflection on top edge */}
            <div className="absolute top-0 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px" style={{ background: `radial-gradient(circle, ${accentColor} 0%, transparent 100%)` }} />
         </div>
-        
-        {/* Content Container */}
-        <div className="w-full h-full flex flex-col md:flex-row items-center gap-12 relative z-20">
+
+        {/* Content Container (Overflow-y-auto to allow scrolling inside massive cards nicely) */}
+        <div className="w-full h-full flex flex-col md:flex-row md:items-center gap-12 relative z-20 overflow-y-auto py-8 px-2 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {children(entryProgress)}
         </div>
       </motion.div>
@@ -176,29 +173,95 @@ function StoryCard({ children, index, total, accentColor }: StoryCardProps) {
 export default function ConnectSection() {
   const { t } = useLanguage();
   const totalCards = 8;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+  const { scrollXProgress } = useScroll({ container: scrollRef, axis: "x" });
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (!isHovered) {
+      intervalId = setInterval(() => {
+        if (!scrollRef.current) return;
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        
+        let targetLeft = 0;
+        // Loop around if reached end
+        if (scrollLeft + clientWidth >= scrollWidth - 20) {
+          targetLeft = 0;
+        } else {
+          // Calculate one card width roughly for step
+          const isMobile = window.innerWidth < 1024;
+          const cardWidth = isMobile ? window.innerWidth * 0.85 : Math.min(window.innerWidth * 0.85, 1280);
+          const gap = isMobile ? window.innerWidth * 0.05 : Math.max(window.innerWidth * 0.05, 80);
+          targetLeft = scrollLeft + cardWidth + gap;
+        }
+        
+        animate(scrollLeft, targetLeft, {
+          duration: 1.2,
+          ease: "easeInOut",
+          onUpdate: (latest) => {
+             if (scrollRef.current) scrollRef.current.scrollLeft = latest;
+          }
+        });
+      }, 2700); // Wait 1.5s completely still + 1.2s smooth slide = 2.7s total exact cycle
+    }
+
+    return () => clearInterval(intervalId);
+  }, [isHovered]);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    
+    // Calculate how far we've scrolled from 0 to 1
+    const scrollRatio = scrollLeft / (scrollWidth - clientWidth);
+    
+    // Hide indicator when user reaches the last card (roughly > 0.9)
+    if (scrollRatio > 0.90) {
+      if (!isAtEnd) setIsAtEnd(true);
+    } else {
+      if (isAtEnd) setIsAtEnd(false);
+    }
+  };
 
   return (
-    <div id="connect" className="relative bg-transparent text-white scroll-mt-20 pb-0 pt-10">
+    <div id="connect" className="relative bg-transparent text-white overflow-hidden pb-12 pt-10">
       
-      {/* Background Ambience (Sticky to follow scroll beautifully) */}
+      {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="sticky top-0 w-full h-screen overflow-hidden">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-          
-          {/* Soft Background Side Glow */}
-          <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[var(--color-glow-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15] -translate-y-1/2 -translate-x-1/4" />
-          
-          {/* Center Soft Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(47,128,237,0.12)_0%,transparent_70%)]" />
-        </div>
+        <div className="w-full h-full absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+        
+        {/* Soft Background Side Glow */}
+        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[var(--color-glow-blue)] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15] -translate-y-1/2 -translate-x-1/4" />
+        
+        {/* Center Soft Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(47,128,237,0.12)_0%,transparent_70%)]" />
       </div>
 
-      <div className="relative z-10 w-full px-4 md:px-8 flex flex-col items-center">
+      {/* Sleek Scroll Progress Bar (Frontend Dev style) */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-64 h-1 bg-white/10 rounded-full overflow-hidden z-[100] hidden md:block">
+         <motion.div 
+           className="h-full bg-gradient-to-r from-[#8A2BE2] to-[#00F0FF]"
+           style={{ width: useTransform(scrollXProgress, [0, 1], ["0%", "100%"]) }}
+         />
+      </div>
+
+      <div 
+        ref={scrollRef}
+        onScroll={handleScroll}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={() => setIsHovered(true)}
+        onTouchEnd={() => setIsHovered(false)}
+        className="relative z-10 w-full h-screen md:h-[100vh] flex overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-center px-0 py-8"
+      >
         
         {/* SECTION 1: INTRO */}
-        <StoryCard index={0} total={totalCards} accentColor="#2F80ED">
+        <StoryCard index={0} total={totalCards} accentColor="#2F80ED" scrollRef={scrollRef}>
           {() => (
-            <div className="text-center w-full max-w-4xl mx-auto flex flex-col justify-center h-full space-y-6">
+            <div className="text-center w-full max-w-4xl mx-auto my-auto flex flex-col justify-center space-y-6">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -233,7 +296,7 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 2: PROBLEM (CHAOS) */}
-        <StoryCard index={1} total={totalCards} accentColor="#F2994A">
+        <StoryCard index={1} total={totalCards} accentColor="#F2994A" scrollRef={scrollRef}>
           {() => (
             <>
               <div className="flex-1 space-y-6 md:space-y-8 w-full">
@@ -283,9 +346,9 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 3: SOLUTION (STRUCTURE) */}
-        <StoryCard index={2} total={totalCards} accentColor="#00F0FF">
+        <StoryCard index={2} total={totalCards} accentColor="#00F0FF" scrollRef={scrollRef}>
           {(entryProgress) => (
-            <div className="w-full flex justify-center items-center h-full">
+            <div className="w-full flex justify-center my-auto">
               <div className="text-center w-full max-w-4xl flex flex-col items-center">
                 <span className="text-[#00F0FF] font-medium tracking-widest uppercase text-xs md:text-sm mb-4 md:mb-6 block">{t('connect.story.s3.tag')}</span>
                 <h3 className="text-4xl md:text-6xl lg:text-7xl font-heading mb-6 md:mb-8">
@@ -326,7 +389,7 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 4: FEATURE 1 (DIRECT SUPPLIER ACCESS) */}
-        <StoryCard index={3} total={totalCards} accentColor="#2F80ED">
+        <StoryCard index={3} total={totalCards} accentColor="#2F80ED" scrollRef={scrollRef}>
           {() => (
             <>
               <div className="flex-1 space-y-4 md:space-y-6 w-full order-2 md:order-1 relative z-10 w-full">
@@ -366,7 +429,7 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 5: FEATURE 2 (REAL-TIME INVENTORY) */}
-        <StoryCard index={4} total={totalCards} accentColor="#8A2BE2">
+        <StoryCard index={4} total={totalCards} accentColor="#8A2BE2" scrollRef={scrollRef}>
           {(entryProgress) => (
             <>
               <div className="flex-1 space-y-4 md:space-y-6 w-full">
@@ -394,7 +457,7 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 6: FEATURE 3 (WHOLESALE PRICING) */}
-        <StoryCard index={5} total={totalCards} accentColor="#00F0FF">
+        <StoryCard index={5} total={totalCards} accentColor="#00F0FF" scrollRef={scrollRef}>
           {(entryProgress) => (
             <>
               <div className="flex-1 space-y-4 md:space-y-6 w-full order-2 md:order-1 relative z-10 w-full">
@@ -425,7 +488,7 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 7: FEATURE 4 (VERIFIED GENUINE) */}
-        <StoryCard index={6} total={totalCards} accentColor="#4ADE80">
+        <StoryCard index={6} total={totalCards} accentColor="#4ADE80" scrollRef={scrollRef}>
           {(entryProgress) => (
             <>
               <div className="flex-1 space-y-4 md:space-y-6 w-full">
@@ -453,9 +516,9 @@ export default function ConnectSection() {
         </StoryCard>
 
         {/* SECTION 8: FINAL IMPACT */}
-        <StoryCard index={7} total={totalCards} accentColor="#FFFFFF">
+        <StoryCard index={7} total={totalCards} accentColor="#FFFFFF" scrollRef={scrollRef}>
           {() => (
-            <div className="text-center w-full max-w-4xl mx-auto flex flex-col justify-center items-center h-full">
+            <div className="text-center w-full max-w-4xl mx-auto my-auto flex flex-col items-center">
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading tracking-tight mb-6 md:mb-8">
                 {t('connect.story.s8.title').includes('Minutes') ? (
                   <>{t('connect.story.s8.title').replace('Minutes', '')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-white">Minutes</span></>

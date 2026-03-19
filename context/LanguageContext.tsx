@@ -254,11 +254,11 @@ const translations: Translations = {
     "pro.btn.cta": "Start Free — No Setup Needed",
 
     "pro.nav.overview": "OVERVIEW",
-    "pro.nav.daybook": "DAILY SUMMARY",
+    "pro.nav.daybook": "DAY BOOK",
     "pro.nav.services": "REPAIR JOBS",
     "pro.nav.billing": "BILLING",
     "pro.nav.expenses": "EXPENSES",
-    "pro.nav.dues": "PENDING DUES",
+    "pro.nav.dues": "DUES",
     "pro.nav.inventory": "INVENTORY",
     "pro.nav.staff": "MY TEAM",
     "pro.nav.customers": "CUSTOMERS",

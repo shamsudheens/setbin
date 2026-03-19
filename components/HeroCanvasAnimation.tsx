@@ -259,7 +259,7 @@ export default function HeroCanvasAnimation() {
                 <span className="text-[12px] text-[#00F0FF] tracking-[0.2em] uppercase font-bold">Our Solution</span>
               </div>
               <h2 
-                className="text-4xl md:text-6xl lg:text-[6.5rem] font-heading font-bold tracking-tight leading-[1.05] break-words hyphens-auto text-center text-white"
+                className="text-4xl md:text-6xl lg:text-[6.5rem] font-heading font-bold tracking-tight leading-[1.05] break-words hyphens-auto text-center text-white mb-4"
                 style={{
                   filter: 'drop-shadow(0 0 50px rgba(0,240,255,0.7))'
                 }}
