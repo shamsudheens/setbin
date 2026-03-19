@@ -142,7 +142,7 @@ export default function HeroCanvasAnimation() {
         {/* Cinematic Storytelling Stages */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-center px-6 overflow-hidden">
            
-           {/* STAGE 1 — Brand Identity */}
+           {/* STAGE 1 — Ecosystem */}
            <motion.div 
              className="absolute flex flex-col items-center pointer-events-none gap-6 w-full max-w-5xl px-4 overflow-hidden"
              style={{ 
@@ -152,33 +152,31 @@ export default function HeroCanvasAnimation() {
                filter: useTransform(smoothProgress, [0, 0.05, 0.10, 0.14], ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"])
              }}
            >
-             {/* Unified Badge Style
-             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--color-glow-blue)]/30 bg-[var(--color-glow-blue)]/10 backdrop-blur-md shadow-[0_0_20px_rgba(47,128,237,0.2)]">
+             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--color-glow-blue)]/30 bg-[var(--color-glow-blue)]/10 backdrop-blur-md shadow-[0_0_20px_rgba(47,128,237,0.2)] mb-2">
                <span className="w-2 h-2 rounded-full bg-[var(--color-glow-cyan)] shadow-[0_0_10px_var(--color-glow-cyan)] animate-pulse" />
-               <span className="text-[12px] text-white/90 tracking-[0.25em] uppercase font-bold">The Digital Backbone</span>
-             </div> */}
-
-             {/* Pure Logo Text: Scaled up for higher brand impact */}
-             <div className="relative h-24 md:h-36 lg:h-48 w-full max-w-5xl flex justify-center items-center select-none">
-               {/* Clean container with no background/glow artifacts */}
-               <div className="relative h-full aspect-[1413/499] overflow-hidden flex items-center justify-center bg-transparent">
-                 <img 
-                   src="/setbin-logo-new.webp" 
-                   alt="SETBIN" 
-                   className="absolute h-full w-[145%] max-w-none object-contain"
-                   style={{ 
-                     left: '-45%',
-                     // Combine all filters here to avoid overrides
-                     filter: 'brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2))'
-                   }}
-                 />
-               </div>
+               <span className="text-[12px] text-white/90 tracking-[0.25em] uppercase font-bold">{t('hero.stage1.tag')}</span>
              </div>
 
+             <h2 
+               className="text-3xl md:text-5xl lg:text-7xl font-heading font-bold tracking-tight leading-[1.1] text-white break-words hyphens-auto text-center px-4"
+               style={{ filter: 'drop-shadow(0 0 40px rgba(47,128,237,0.4))' }}
+               dangerouslySetInnerHTML={{ __html: t('hero.stage1.title') }}
+             />
 
-             <p className="text-xl md:text-2xl lg:text-3xl text-white/80 font-medium max-w-3xl leading-relaxed tracking-wide break-words hyphens-auto text-gradient drop-shadow-lg">
-               {t('hero.stage1.subtitle')}
-             </p>
+             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full flex flex-col items-center">
+               <p className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4">
+                 {t('hero.stage1.subtitle')}
+               </p>
+               <div className="w-full h-px bg-white/5 mb-4" />
+               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                 {t('hero.stage1.points').split(' • ').map((point, idx) => (
+                   <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                     <span className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+                     {point}
+                   </span>
+                 ))}
+               </div>
+             </div>
            </motion.div>
 
            {/* STAGE 2 — Problem */}
@@ -194,7 +192,7 @@ export default function HeroCanvasAnimation() {
              {/* Stage tag */}
              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--color-glow-blue)]/30 bg-[var(--color-glow-blue)]/10 backdrop-blur-md shadow-[0_0_20px_rgba(47,128,237,0.2)]">
                <span className="w-2 h-2 rounded-full bg-[var(--color-glow-cyan)] shadow-[0_0_10px_#00F0FF] animate-pulse" />
-               <span className="text-[12px] text-white/90 tracking-[0.2em] uppercase font-bold">The Challenge</span>
+               <span className="text-[12px] text-white/90 tracking-[0.2em] uppercase font-bold">{t('hero.stage2.tag')}</span>
              </div>
              <h2 
                className="text-3xl md:text-5xl lg:text-7xl font-heading font-bold tracking-tight leading-[1.1] text-white break-words hyphens-auto text-center px-4"
@@ -202,12 +200,21 @@ export default function HeroCanvasAnimation() {
                dangerouslySetInnerHTML={{ __html: t('hero.stage2.title') }}
              />
              <div className="w-16 h-1 bg-gradient-to-r from-[var(--color-glow-blue)] to-transparent rounded-full shadow-[0_0_20px_var(--color-glow-blue)]" />
-             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full">
+             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full flex flex-col items-center">
                <p 
-                 className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center"
+                 className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4"
                  style={{ textShadow: '0 0 10px rgba(47,128,237,0.2)' }}
                  dangerouslySetInnerHTML={{ __html: t('hero.stage2.subtext') }}
                />
+               <div className="w-full h-px bg-white/5 mb-4" />
+               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                 {t('hero.stage2.points').split(' • ').map((point, idx) => (
+                   <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                     <span className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+                     {point}
+                   </span>
+                 ))}
+               </div>
              </div>
            </motion.div>
 
@@ -223,7 +230,7 @@ export default function HeroCanvasAnimation() {
            >
              {/* Stage tag */}
              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--color-glow-blue)]/30 bg-[var(--color-glow-blue)]/10 backdrop-blur-md shadow-[0_0_20px_rgba(47,128,237,0.2)]">
-               <span className="text-[12px] text-white/80 tracking-[0.2em] uppercase font-bold">The Shift</span>
+               <span className="text-[12px] text-white/80 tracking-[0.2em] uppercase font-bold">{t('hero.stage3.tag')}</span>
              </div>
              <h2 
                className="text-4xl md:text-6xl lg:text-[6rem] font-heading font-bold tracking-tight leading-[1.05] break-words hyphens-auto text-center"
@@ -232,14 +239,22 @@ export default function HeroCanvasAnimation() {
                }}
                dangerouslySetInnerHTML={{ __html: t('hero.stage3.title') }}
              />
-             <div className="flex items-center gap-6 max-w-md w-full">
-               <div className="flex-1 h-[2px] bg-gradient-to-r from-transparent to-[#2F80ED]/60" />
+             <div className="w-16 h-1 bg-gradient-to-r from-[var(--color-glow-blue)] to-transparent rounded-full shadow-[0_0_20px_var(--color-glow-blue)]" />
+             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full flex flex-col items-center">
                <p 
-                 className="text-lg md:text-xl text-white/90 font-medium italic tracking-wide break-words hyphens-auto text-center"
+                 className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4"
                  style={{ textShadow: '0 0 10px rgba(47,128,237,0.2)' }}
                  dangerouslySetInnerHTML={{ __html: t('hero.stage3.subtext') }}
                />
-               <div className="flex-1 h-[2px] bg-gradient-to-l from-transparent to-[#2F80ED]/60" />
+               <div className="w-full h-px bg-white/5 mb-4" />
+               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                 {t('hero.stage3.points').split(' • ').map((point, idx) => (
+                   <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                     <span className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+                     {point}
+                   </span>
+                 ))}
+               </div>
              </div>
            </motion.div>
 
@@ -256,7 +271,7 @@ export default function HeroCanvasAnimation() {
               {/* Stage tag */}
               <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,240,255,0.3)]">
                 <span className="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF] animate-pulse" />
-                <span className="text-[12px] text-[#00F0FF] tracking-[0.2em] uppercase font-bold">Our Solution</span>
+                <span className="text-[12px] text-[#00F0FF] tracking-[0.2em] uppercase font-bold">{t('hero.stage4.tag')}</span>
               </div>
               <h2 
                 className="text-4xl md:text-6xl lg:text-[6.5rem] font-heading font-bold tracking-tight leading-[1.05] break-words hyphens-auto text-center text-white mb-4"
@@ -268,10 +283,19 @@ export default function HeroCanvasAnimation() {
               <div className="flex flex-col items-center gap-0 px-10 py-7 rounded-3xl border border-[#00F0FF]/30 bg-black/50 backdrop-blur-xl max-w-2xl w-full relative overflow-hidden">
                 <div className="absolute top-0 left-[20%] right-[20%] h-1 bg-gradient-to-r from-transparent via-[#00F0FF]/70 to-transparent shadow-[0_0_20px_#00F0FF]" />
                 <p 
-                  className="text-lg md:text-2xl text-white/90 font-medium leading-relaxed break-words text-center"
+                  className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4"
                   style={{ textShadow: '0 0 10px rgba(47,128,237,0.2)' }}
                   dangerouslySetInnerHTML={{ __html: t('hero.stage4.subtext') }}
                 />
+                <div className="w-full h-px bg-white/5 mb-4" />
+                <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                  {t('hero.stage4.points').split(' • ').map((point, idx) => (
+                    <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+                      {point}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
 
@@ -288,26 +312,33 @@ export default function HeroCanvasAnimation() {
              {/* Stage tag */}
              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,240,255,0.3)]">
                <span className="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF] animate-pulse" />
-               <span className="text-[12px] text-[#00F0FF] tracking-[0.2em] uppercase font-bold">What We Power</span>
+               <span className="text-[12px] text-[#00F0FF] tracking-[0.2em] uppercase font-bold">{t('hero.stage5.tag')}</span>
              </div>
              <h2 
                className="text-5xl md:text-7xl lg:text-[7.5rem] font-heading font-bold tracking-tighter leading-[1] text-white break-words hyphens-auto text-center"
                style={{ filter: 'drop-shadow(0 0 50px rgba(0,240,255,0.5))' }}
                dangerouslySetInnerHTML={{ __html: t('hero.stage5.title') }}
              />
-             <div className="flex items-center gap-3">
-               <div className="w-12 h-1 bg-gradient-to-r from-transparent to-[#00F0FF] rounded-full shadow-[0_0_10px_#00F0FF]" />
-               <div className="w-2 h-2 rounded-full bg-[#00F0FF]" />
-               <div className="w-12 h-1 bg-gradient-to-l from-transparent to-[#00F0FF] rounded-full shadow-[0_0_10px_#00F0FF]" />
+             <div className="w-16 h-1 bg-gradient-to-r from-[var(--color-glow-blue)] to-transparent rounded-full shadow-[0_0_20px_var(--color-glow-blue)]" />
+             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full flex flex-col items-center">
+               <p 
+                 className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4"
+                 style={{ textShadow: '0 0 10px rgba(47,128,237,0.2)' }}
+                 dangerouslySetInnerHTML={{ __html: t('hero.stage5.subtext') }}
+               />
+               <div className="w-full h-px bg-white/5 mb-4" />
+               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                 {t('hero.stage5.points').split(' • ').map((point, idx) => (
+                   <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                     <span className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+                     {point}
+                   </span>
+                 ))}
+               </div>
              </div>
-             <p 
-               className="text-xl md:text-2xl text-white/95 font-semibold max-w-2xl leading-relaxed tracking-wide break-words hyphens-auto text-center px-10 py-6 rounded-3xl bg-black/40 backdrop-blur-xl border border-[#00F0FF]/30 shadow-[0_0_30px_rgba(0,240,255,0.1)]"
-               style={{ textShadow: '0 0 10px rgba(0,240,255,0.2)' }}
-               dangerouslySetInnerHTML={{ __html: t('hero.stage5.subtext') }}
-             />
            </motion.div>
 
-           {/* STAGE 6 — Logo Reveal */}
+           {/* STAGE 6 — Connect */}
            <motion.div 
              className="absolute flex flex-col items-center pointer-events-none gap-0 w-full max-w-5xl px-4 overflow-hidden"
              style={{ 
@@ -317,23 +348,31 @@ export default function HeroCanvasAnimation() {
                filter: useTransform(smoothProgress, [0.86, 0.89, 0.93, 0.95], ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"])
              }}
            >
-             {/* Pure Logo Text: Scaled up for matching brand impact */}
-             <div className="relative h-24 md:h-36 lg:h-48 w-full max-w-5xl flex justify-center items-center select-none">
-               <div className="relative h-full aspect-[1413/499] overflow-hidden flex items-center justify-center bg-transparent">
-                 <img 
-                   src="/setbin-logo-new.webp" 
-                   alt="SETBIN" 
-                   className="absolute h-full w-[145%] max-w-none object-contain"
-                   style={{ 
-                     left: '-45%',
-                     filter: 'brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2))'
-                   }}
-                 />
+             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,240,255,0.3)] mb-4">
+               <span className="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF] animate-pulse" />
+               <span className="text-[12px] text-[#00F0FF] tracking-[0.2em] uppercase font-bold">{t('hero.stage6.tag')}</span>
+             </div>
+             <h2 
+               className="text-5xl md:text-7xl lg:text-[6.5rem] font-heading font-bold tracking-tighter leading-[1] text-white break-words hyphens-auto text-center mb-6"
+               style={{ filter: 'drop-shadow(0 0 50px rgba(0,240,255,0.5))' }}
+               dangerouslySetInnerHTML={{ __html: t('hero.stage6.title') }}
+             />
+             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full flex flex-col items-center">
+               <p 
+                 className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4"
+                 style={{ textShadow: '0 0 10px rgba(47,128,237,0.2)' }}
+                 dangerouslySetInnerHTML={{ __html: t('hero.stage6.subtext') }}
+               />
+               <div className="w-full h-px bg-white/5 mb-4" />
+               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                 {t('hero.stage6.points').split(' • ').map((point, idx) => (
+                   <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                     <span className="w-1 h-1 rounded-full bg-[var(--color-glow-cyan)]" />
+                     {point}
+                   </span>
+                 ))}
                </div>
              </div>
-             <p className="text-base md:text-lg text-white/80 font-semibold tracking-[0.2em] uppercase break-words text-center max-w-xl px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-               {t('hero.stage6.subtext')}
-             </p>
            </motion.div>
 
            {/* STAGE 7 — CTA */}
@@ -349,13 +388,29 @@ export default function HeroCanvasAnimation() {
              {/* Stage tag */}
              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                <span className="w-3 h-3 rounded-full bg-white shadow-[0_0_15px_white] animate-pulse" />
-               <span className="text-[12px] text-white tracking-[0.25em] uppercase font-bold">Inspiration to Success</span>
+               <span className="text-[12px] text-white tracking-[0.25em] uppercase font-bold">{t('hero.stage7.tag')}</span>
              </div>
              <h2 
                className="text-5xl md:text-7xl lg:text-[7rem] font-heading font-bold tracking-tighter leading-[1] text-white break-words hyphens-auto text-center"
                style={{ filter: 'drop-shadow(0 0 50px rgba(255,255,255,0.4))' }}
                dangerouslySetInnerHTML={{ __html: t('hero.stage7.title') }}
              />
+             <div className="px-8 py-6 rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl max-w-2xl w-full flex flex-col items-center mb-6">
+               <p 
+                 className="text-sm md:text-base lg:text-xl text-white/90 font-medium uppercase tracking-[0.12em] leading-relaxed break-words text-center mb-4"
+                 style={{ textShadow: '0 0 10px rgba(47,128,237,0.2)' }}
+                 dangerouslySetInnerHTML={{ __html: t('hero.stage7.subtext') }}
+               />
+               <div className="w-full h-px bg-white/5 mb-4" />
+               <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                 {t('hero.stage7.points').split(' • ').map((point, idx) => (
+                   <span key={idx} className="text-[10px] md:text-xs text-white/60 tracking-widest uppercase flex items-center gap-2">
+                     <span className="w-1 h-1 rounded-full bg-white" />
+                     {point}
+                   </span>
+                 ))}
+               </div>
+             </div>
              <a 
                href="#connect"
                className="group relative px-12 py-5 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"

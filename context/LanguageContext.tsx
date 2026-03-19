@@ -15,34 +15,47 @@ const translations: Translations = {
     // ─────────────────────────────────────────
     // NAVIGATION
     // ─────────────────────────────────────────
-    "nav.connect": "Spare Parts",
-    "nav.repair": "Manage My Shop",
-    "nav.schemic": "AI Diagnostics",
+    "nav.connect": "Setbin Connect",
+    "nav.repair": "Setbin Repair",
+    "nav.schemic": "Schemic AI",
     "nav.connectBtn": "Join Free — It's Open",
     "nav.connectBtnMobile": "Join Free",
 
     // ─────────────────────────────────────────
-    // HERO — 7 STAGES
-    // ─────────────────────────────────────────
-    "hero.stage1.title": "SETBIN",
-    "hero.stage1.subtitle": "Everything a Mobile Repair Business Needs — In One Place",
+    "hero.stage1.tag": "ECOSYSTEM",
+    "hero.stage1.title": "India’s First Complete <span class='text-[#00F0FF]'>Ecosystem</span> for Mobile Repair",
+    "hero.stage1.subtitle": "Built for technicians, shop owners & wholesalers",
+    "hero.stage1.points": "Run your shop • Source parts • Diagnose faults • All in one system",
 
-    "hero.stage2.title": "An Industry Worth <span class='text-[#00F0FF]'>Billions</span><br/>Still Running on <span class='text-[#00F0FF]'>WhatsApp & Notebooks</span>",
-    "hero.stage2.subtext": "Spare parts. Daily repairs. Complex faults.<br/>All handled the hard way — until now.",
+    "hero.stage2.tag": "THE REALITY",
+    "hero.stage2.title": "An Industry Running <span class='text-[#00F0FF]'>Without Systems</span>",
+    "hero.stage2.subtext": "Still dependent on manual workflows",
+    "hero.stage2.points": "WhatsApp & calls • Paper notes • No tracking • No control",
 
-    "hero.stage3.title": "From <span class='text-[#00F0FF]'>Guesswork</span><br/>to <span class='text-[#00F0FF]'>Confidence</span>",
-    "hero.stage3.subtext": "What if finding parts, running your shop, and diagnosing faults was actually easy?",
+    "hero.stage3.tag": "THE GAP",
+    "hero.stage3.title": "Problems Everywhere. <span class='text-[#00F0FF]'>No Real Solution.</span>",
+    "hero.stage3.subtext": "Every part of your workflow is broken",
+    "hero.stage3.points": "Shop operations unclear • Parts sourcing difficult • Diagnosis takes time • Everything disconnected",
 
-    "hero.stage4.title": "SETBIN <span class='text-[#00F0FF]'>brings it all together</span>",
-    "hero.stage4.subtext": "Find genuine spare parts<br/>Run your service center<br/>Diagnose faults with AI<br/>All in one platform.",
+    "hero.stage4.tag": "THE LEGACY",
+    "hero.stage4.title": "Built After <span class='text-[#00F0FF]'>15+ Years</span> of Industry Experience",
+    "hero.stage4.subtext": "Not assumptions. Real problems solved.",
+    "hero.stage4.points": "Real technician workflows • Ground-level insights • Practical solutions",
 
-    "hero.stage5.title": "<span class='text-[#00F0FF]'>Source.</span> <span class='text-[#ffffff]'>Manage.</span> <span class='text-[#00F0FF]'>Diagnose.</span>",
-    "hero.stage5.subtext": "The only platform built from the ground up<br/>for mobile repair professionals.",
+    "hero.stage5.tag": "THE DIFFERENCE",
+    "hero.stage5.title": "Not Generic Software. <span class='text-[#00F0FF]'>Built for You.</span>",
+    "hero.stage5.subtext": "Designed specifically for repair businesses",
+    "hero.stage5.points": "Simple & fast • Mobile-first • No learning curve",
 
-    "hero.stage6.title": "SETBIN",
-    "hero.stage6.subtext": "Built for India's Mobile Repair Professionals",
+    "hero.stage6.tag": "THE POWER",
+    "hero.stage6.title": "Everything Connected. <span class='text-[#00F0FF]'>Full Control.</span>",
+    "hero.stage6.subtext": "One ecosystem. Three powerful systems.",
+    "hero.stage6.points": "Manage your shop • Find genuine parts • Diagnose with AI • Secure & cloud-based",
 
-    "hero.stage7.title": "The Smarter Way to Run Your <span class='text-[#00F0FF]'>Repair Business</span>",
+    "hero.stage7.tag": "THE FUTURE",
+    "hero.stage7.title": "The Future of Mobile Repair <span class='text-[#00F0FF]'>Starts Here</span>",
+    "hero.stage7.subtext": "Built to grow with your business",
+    "hero.stage7.points": "Continuous updates • Dedicated support • Long-term vision",
     "hero.stage7.btn": "Explore the Platform",
 
     // ─────────────────────────────────────────
@@ -1731,7 +1744,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("en");
 
   const t = (key: string) => {
-    return translations[language][key] || key;
+    return translations[language][key] || translations["en"][key] || key;
   };
 
   return (
