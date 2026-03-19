@@ -79,7 +79,7 @@ export default function Navbar() {
           </div>
         </div>
         
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/80">
+        <div className="hidden md:flex items-center gap-8 text-sm font-heading font-medium text-white/80 uppercase tracking-wider">
           {[
             { name: t('nav.connect'), id: 'nav-connect', href: '#connect' },
             { name: t('nav.repair'), id: 'nav-repair', href: '#setbin-repair' },
@@ -107,7 +107,7 @@ export default function Navbar() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-glow-blue)] to-[var(--color-glow-cyan)] opacity-70 group-hover:opacity-100 transition-opacity" />
             <div className="absolute inset-[1px] bg-[#030816] rounded-full" />
-            <span className="relative z-10 text-white font-medium text-xs md:text-sm tracking-wide text-glow">
+            <span className="relative z-10 text-white font-heading font-bold text-xs md:text-sm tracking-wider text-glow uppercase">
               <span className="hidden md:inline">{t('nav.connectBtn')}</span>
               <span className="md:hidden">{t('nav.connectBtnMobile')}</span>
             </span>
